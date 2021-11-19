@@ -39,7 +39,16 @@ TagManager:
   - 
   m_SortingLayers:
   - name: Ground
-    uniqueID: 2525171029
+    uniqueID: 2256640939
+    locked: 0
+  - name: AgentOnGround
+    uniqueID: 610072497
+    locked: 0
+  - name: Level1
+    uniqueID: 3609753741
+    locked: 0
+  - name: AgentLevel1
+    uniqueID: 936455929
     locked: 0
   - name: Default
     uniqueID: 0
