@@ -40,10 +40,13 @@ public class MapTest : MonoBehaviour
             Vector3 place = tilemap.CellToWorld(localPlace);
             if (tilemap.HasTile(localPlace))
             {
+                TileBase tilebase = tilemap.GetTile(localPlace);
+                print(tilebase.name);
                 tileWorldLocations.Add(place);
                 Debug.Log(localPlace);
             }
         }
+        
     }
 
     // Update is called once per frame
