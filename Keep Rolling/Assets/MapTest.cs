@@ -5,9 +5,8 @@ using UnityEngine.Tilemaps;
 
 public class MapTest : MonoBehaviour
 {
-    public Tilemap tilemap;
-    public List<Vector3> tileWorldLocations;
-    // Start is called before the first frame update
+    public List<Tilemap> tilemaps;
+    public List<Cell> cells;
     void Start()
     {
         /*Tilemap tilemap = GetComponent<Tilemap>();
@@ -32,26 +31,27 @@ public class MapTest : MonoBehaviour
             }
         }*/
 
-        tileWorldLocations = new List<Vector3>();
-
-        foreach (var pos in tilemap.cellBounds.allPositionsWithin)
+        cells = new List<Cell>();
+        for (int height = 0; height < tilemaps.Count; height++)
         {
-            Vector3Int localPlace = new Vector3Int(pos.x, pos.y, pos.z);
-            Vector3 place = tilemap.CellToWorld(localPlace);
-            if (tilemap.HasTile(localPlace))
+            var tilemap = tilemaps[height];
+            foreach (var pos in tilemap.cellBounds.allPositionsWithin)
             {
-                TileBase tilebase = tilemap.GetTile(localPlace);
-                print(tilebase.name);
-                tileWorldLocations.Add(place);
-                Debug.Log(localPlace);
+                Vector3Int localPlace = new Vector3Int(pos.x, pos.y, pos.z);
+                //useful function
+                //Vector3 place = tilemap.CellToWorld(localPlace);
+                if (tilemap.HasTile(localPlace))
+                {
+                    TileBase tilebase = tilemap.GetTile(localPlace);
+                    Cell cell = CellFactory.CreateCell(pos.x, pos.y, height, tilebase.name);
+                    cells.Add(cell);
+                }
             }
         }
-        
-    }
+        foreach (var cell in cells)
+            Debug.Log(cell);
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+
+
     }
 }

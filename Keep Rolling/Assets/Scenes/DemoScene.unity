@@ -716,8 +716,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09e04353e44faaf45903403d144ddedc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilemap: {fileID: 0}
-  tileWorldLocations: []
+  tilemaps: []
 --- !u!1 &713890836
 GameObject:
   m_ObjectHideFlags: 0
@@ -909,8 +908,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09e04353e44faaf45903403d144ddedc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilemap: {fileID: 481268419}
-  tileWorldLocations: []
+  tilemaps:
+  - {fileID: 259451592}
+  - {fileID: 481268419}
 --- !u!1 &1076935539
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,10 +10,10 @@ public class CellFactory
         switch (tileName) {
 
             case string tile when tile.Contains("ground"):
-                return new Cell(x, y, height, true);
+                return new GroundCell(x, y, height);
 
             case string tile when tile.Contains("ramp"):
-                return new Cell(x, y, height, true);
+                return new TeleporterCell(x, y, height);
             
             // not walkable
             default:
