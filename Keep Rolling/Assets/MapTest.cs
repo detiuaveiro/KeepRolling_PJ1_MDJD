@@ -5,10 +5,17 @@ using UnityEngine.Tilemaps;
 
 public class MapTest : MonoBehaviour
 {
+    public static MapTest instance;
     public List<Tilemap> tilemaps;
     public List<Cell> cells;
     void Start()
     {
+        if (instance != null)
+        {
+            Destroy(this.gameObject);
+        }
+
+        instance = this;
         /*Tilemap tilemap = GetComponent<Tilemap>();
 
         BoundsInt bounds = tilemap.cellBounds;

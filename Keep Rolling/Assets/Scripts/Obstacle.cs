@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
-    public string type;
+    public PieceType type;
     public GameObject prefab;
 }

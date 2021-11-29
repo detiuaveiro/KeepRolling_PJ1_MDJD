@@ -41,4 +41,9 @@ public class Cell
     {
         return $"Cell x:{x} y:{y}, height:{height}";
     }
+
+    public Vector2 getPosition()
+    {
+        return new Vector2(x, y);
+    }
 }
