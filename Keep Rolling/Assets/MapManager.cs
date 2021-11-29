@@ -3,28 +3,45 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class MapManager
+public class MapManager : MonoBehaviour
 {
-    private static MapManager instance = null;
+    public static MapManager instance;
     public List<Tilemap> tilemaps;
     public List<Cell> cells;
-    private MapManager(List<Tilemap> tilemaps) {
-        this.tilemaps = tilemaps;
-        CreateCellGrid();
-    }
-
-    public static MapManager GetInstance() {
-        if (instance == null) {
-            //maybe error
-            return null;
+    void Start()
+    {
+        if (instance != null)
+        {
+            Destroy(this.gameObject);
         }
-        return instance;
-    }
-    public static void CreateInstance(List<Tilemap> tilemaps) {
-        instance = new MapManager(tilemaps);
-    }
 
-    private void CreateCellGrid() {
+        instance = this;
+        /*Tilemap tilemap = GetComponent<Tilemap>();
+
+        BoundsInt bounds = tilemap.cellBounds;
+        TileBase[] allTiles = tilemap.GetTilesBlock(bounds);
+        Debug.Log( bounds.size);
+        Debug.Log(allTiles[0]);
+        for (int x = 0; x < bounds.size.x; x++)
+        {
+            for (int y = 0; y < bounds.size.y; y++)
+            {
+                TileBase tile = allTiles[x + y * bounds.size.x];
+                if (tile != null)
+                {
+                    Debug.Log("x:" + x + " y:" + y + " tile:" + tile.name);
+                }
+                else
+                {
+                    //Debug.Log("x:" + x + " y:" + y + " tile: (null)");
+                }
+            }
+        }*/
+        CreateCellGrid();
+
+    }
+    private void CreateCellGrid()
+    {
         this.cells = new List<Cell>();
         for (int height = 0; height < tilemaps.Count; height++)
         {
