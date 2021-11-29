@@ -46,4 +46,17 @@ public class Cell
     {
         return new Vector2(x, y);
     }
+
+    public int getX() {
+        return x;
+    }
+    public int getY()
+    {
+        return y;
+    }
+    public int getHeight()
+    {
+        return height;
+    }
+
 }
