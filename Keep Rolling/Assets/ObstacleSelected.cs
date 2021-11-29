@@ -11,7 +11,7 @@ public class ObstacleSelected : MonoBehaviour
     private void Start()
     {
         grid = GameObject.Find("Grid").GetComponent<Grid>();
-        cells = MapTest.instance.cells;
+        cells = MapManager.GetInstance().cells;
         Debug.Log("Got " + cells.Count);
     }
     void Update()
