@@ -21,10 +21,11 @@ public class ObstacleSelected : MonoBehaviour
 
         foreach (var cell in cells)
         {
-            if (Vector2.Distance(cell.getPosition(), transform.position) < 0.5)
+            Vector3Int cellPos = new Vector3Int((int)cell.getPosition().x,(int)cell.getPosition().y,0);
+            Vector3 place = MapManager.instance.tilemaps[cell.getHeight()].GetCellCenterWorld(cellPos);
+            if (Vector3.Distance(place, transform.position) < 0.25)
             {
-                transform.position = cell.getPosition();
-                Debug.Log("Snapping to: " + cell);
+                transform.position = place;
             }
         }
 

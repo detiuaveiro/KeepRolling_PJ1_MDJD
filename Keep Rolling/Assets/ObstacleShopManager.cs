@@ -18,6 +18,7 @@ public class ObstacleShopManager : MonoBehaviour
 
     public void obstacleCliked(Obstacle obstacle)
     {
-        Instantiate(obstacle.prefab, this.transform);
+        GameObject newTile = Instantiate(obstacle.prefab, this.transform);
+        newTile.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1,0.75f);
     }
 }
