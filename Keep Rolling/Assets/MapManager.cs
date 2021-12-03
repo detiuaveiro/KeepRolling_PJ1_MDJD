@@ -59,9 +59,58 @@ public class MapManager : MonoBehaviour
                 }
             }
         }
+        CanPlaceTile(cells[0], null);
         /*
         foreach (var cell in cells)
             Debug.Log(cell);
         */
     }
+
+    private bool CanPlaceTileHere(int x, int y, int height)
+    {
+        foreach (var cell in cells)
+        {
+            if (cell.getX() == x && cell.getY() == y && cell.getHeight() == height)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public bool CanPlaceTile(Cell cell, Obstacle piece) {
+
+        if (!cell.CanPlaceOnTop(piece.type))
+            return false;
+
+        //TODO: keep adding PieceTypes
+        switch (piece.type) {
+            case PieceType.Ramp:
+                return CanPlaceTileHere(cell.getX(), cell.getY(), cell.getHeight()+1);
+            default:
+                return false;
+        }
+    }
+
+    public bool PlaceTile(Cell cell, Obstacle piece) {
+        
+        if (!CanPlaceTile(cell, piece))
+            return false;
+
+        //TODO: keep adding PieceTypes
+        switch (piece.type)
+        {
+            case PieceType.Ramp:
+                Tile tile = new Tile();
+                tilemaps[cell.getHeight() + 1].SetTile(new Vector3Int(cell.getX(),cell.getY(),0), tile);
+                cells.Add(new TeleporterCell(cell.getX(), cell.getY(),cell.getHeight()));
+                break;
+            default:
+                return false;
+        }
+        return true;
+    }
+
+
+
 }
