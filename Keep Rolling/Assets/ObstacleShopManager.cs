@@ -20,5 +20,6 @@ public class ObstacleShopManager : MonoBehaviour
     {
         GameObject newTile = Instantiate(obstacle.prefab, this.transform);
         newTile.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1,0.75f);
+        newTile.GetComponent<ObstacleSelected>().type = obstacle.type;
     }
 }

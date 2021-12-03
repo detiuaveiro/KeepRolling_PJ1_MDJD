@@ -8,16 +8,19 @@ public class ObstacleSelected : MonoBehaviour
     public Tile tile;
     public Grid grid;
     private List<Cell> cells;
+    private Cell lastSnappedCell;
+    public PieceType type;
     private void Start()
     {
         grid = GameObject.Find("Grid").GetComponent<Grid>();
         cells = MapManager.instance.cells;
-        Debug.Log("Got " + cells.Count);
     }
     void Update()
     {
         transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
+
+        lastSnappedCell = null;
 
         foreach (var cell in cells)
         {
@@ -26,13 +29,14 @@ public class ObstacleSelected : MonoBehaviour
             if (Vector3.Distance(place, transform.position) < 0.25)
             {
                 transform.position = place;
+                lastSnappedCell = cell;
             }
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (lastSnappedCell != null && Input.GetButton("Fire1"))
         {
-            Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector3Int coordinate = grid.WorldToCell(mouseWorldPos);
+            Debug.Log("placing");
+            Destroy(this.gameObject);
         }
     }
 }
