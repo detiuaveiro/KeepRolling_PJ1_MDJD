@@ -78,7 +78,7 @@ public class MapManager : MonoBehaviour
         return true;
     }
 
-    public bool CanPlaceTile(Cell cell, Obstacle piece) {
+    public bool CanPlaceTile(Cell cell, Piece piece) {
 
         if (!cell.CanPlaceOnTop(piece.type))
             return false;
@@ -92,7 +92,7 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    public bool PlaceTile(Cell cell, Obstacle piece) {
+    public bool PlaceTile(Cell cell, Piece piece) {
         
         if (!CanPlaceTile(cell, piece))
             return false;
@@ -101,8 +101,7 @@ public class MapManager : MonoBehaviour
         switch (piece.type)
         {
             case PieceType.Ramp:
-                Tile tile = new Tile();
-                tilemaps[cell.getHeight() + 1].SetTile(new Vector3Int(cell.getX(),cell.getY(),0), tile);
+                tilemaps[cell.getHeight() + 1].SetTile(new Vector3Int(cell.getX(),cell.getY(),0), piece.tile);
                 cells.Add(new TeleporterCell(cell.getX(), cell.getY(),cell.getHeight()));
                 break;
             default:
