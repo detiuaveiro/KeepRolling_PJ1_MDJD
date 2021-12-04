@@ -9,7 +9,7 @@ public class ObstacleSelected : MonoBehaviour
     public Grid grid;
     private List<Cell> cells;
     private Cell lastSnappedCell;
-    public PieceType type;
+    public Piece piece;
     private void Start()
     {
         grid = GameObject.Find("Grid").GetComponent<Grid>();
@@ -33,10 +33,23 @@ public class ObstacleSelected : MonoBehaviour
             }
         }
 
-        if (lastSnappedCell != null && Input.GetButton("Fire1"))
+        if (lastSnappedCell != null)
         {
-            Debug.Log("placing");
-            Destroy(this.gameObject);
+            if (MapManager.instance.CanPlaceTile(lastSnappedCell, piece))
+            {
+                this.gameObject.GetComponent<SpriteRenderer>().color = new Color(0.2f, 1, 0.2f, 0.75f);
+            } else
+            {
+                this.gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 0.2f, 0.2f, 0.75f);
+            }
+            if (Input.GetButton("Fire1"))
+            {
+                Debug.Log("placing");
+                Destroy(this.gameObject);
+            }
+        } else
+        {
+            this.gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.75f);
         }
     }
 }

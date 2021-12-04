@@ -59,7 +59,7 @@ public class MapManager : MonoBehaviour
                 }
             }
         }
-        CanPlaceTile(cells[0], null);
+        //CanPlaceTile(cells[0], null);
         /*
         foreach (var cell in cells)
             Debug.Log(cell);
