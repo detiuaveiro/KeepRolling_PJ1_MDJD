@@ -7,7 +7,8 @@ public class MapManager : MonoBehaviour
 {
     public static MapManager instance;
     public List<Tilemap> tilemaps;
-    public List<Cell> cells;
+    //public List<Cell> cells;
+    public CellMatrix cell_matrix;
     void Start()
     {
         if (instance != null)
@@ -16,33 +17,15 @@ public class MapManager : MonoBehaviour
         }
 
         instance = this;
-        /*Tilemap tilemap = GetComponent<Tilemap>();
 
-        BoundsInt bounds = tilemap.cellBounds;
-        TileBase[] allTiles = tilemap.GetTilesBlock(bounds);
-        Debug.Log( bounds.size);
-        Debug.Log(allTiles[0]);
-        for (int x = 0; x < bounds.size.x; x++)
-        {
-            for (int y = 0; y < bounds.size.y; y++)
-            {
-                TileBase tile = allTiles[x + y * bounds.size.x];
-                if (tile != null)
-                {
-                    Debug.Log("x:" + x + " y:" + y + " tile:" + tile.name);
-                }
-                else
-                {
-                    //Debug.Log("x:" + x + " y:" + y + " tile: (null)");
-                }
-            }
-        }*/
         CreateCellGrid();
 
     }
     private void CreateCellGrid()
     {
-        this.cells = new List<Cell>();
+        var cell_list = new List<Cell>();
+        int min_y = 1000, min_x = 1000, max_y = -1000, max_x = -1000;
+
         for (int height = 0; height < tilemaps.Count; height++)
         {
             var tilemap = tilemaps[height];
@@ -55,19 +38,36 @@ public class MapManager : MonoBehaviour
                 {
                     TileBase tilebase = tilemap.GetTile(localPlace);
                     Cell cell = CellFactory.CreateCell(pos.x, pos.y, height, tilebase.name);
-                    cells.Add(cell);
+                    cell_list.Add(cell);
+                    min_x = Mathf.Min(min_x, pos.x);
+                    min_y = Mathf.Min(min_y, pos.y);
+                    max_x = Mathf.Max(max_x, pos.x);
+                    max_y = Mathf.Max(max_y, pos.y);
                 }
             }
         }
+
+        cell_matrix = new CellMatrix(min_x, min_y, max_x, max_y);
+        Debug.Log(min_x);
+        Debug.Log(min_y);
+        Debug.Log(max_x);
+        Debug.Log(max_y);
+
         //CanPlaceTile(cells[0], null);
-        /*
-        foreach (var cell in cells)
-            Debug.Log(cell);
-        */
+
+        foreach (Cell cell in cell_list)
+        {
+            cell_matrix.AddCell(cell);
+            //Debug.Log(cell);
+        }
+        
     }
 
     private bool CanPlaceTileHere(int x, int y, int height)
     {
+        return (!cell_matrix.HasCell(x, y) || cell_matrix.GetCell(x, y).getHeight() < height);
+
+        /*
         foreach (var cell in cells)
         {
             if (cell.getX() == x + height && cell.getY() == y + height && cell.getHeight() == height)
@@ -75,7 +75,9 @@ public class MapManager : MonoBehaviour
                 return false;
             }
         }
+        
         return true;
+        */
     }
 
     public bool CanPlaceTile(Cell cell, Piece piece) {
@@ -102,7 +104,8 @@ public class MapManager : MonoBehaviour
         {
             case PieceType.Ramp:
                 tilemaps[cell.getHeight() + 1].SetTile(new Vector3Int(cell.getX() + 1,cell.getY() + 1,0), piece.tile);
-                cells.Add(new TeleporterCell(cell.getX() + 1, cell.getY() + 1, cell.getHeight()));
+                var new_cell = new TeleporterCell(cell.getX() + 1, cell.getY() + 1, cell.getHeight() + 1);
+                cell_matrix.AddCell(new_cell);
                 break;
             default:
                 return false;

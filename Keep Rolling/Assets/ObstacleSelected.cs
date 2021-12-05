@@ -13,7 +13,7 @@ public class ObstacleSelected : MonoBehaviour
     private void Start()
     {
         grid = GameObject.Find("Grid").GetComponent<Grid>();
-        cells = MapManager.instance.cells;
+        cells = MapManager.instance.cell_matrix.GetAllCells();
     }
     void Update()
     {
@@ -30,7 +30,7 @@ public class ObstacleSelected : MonoBehaviour
             {
                 transform.position = place;
                 lastSnappedCell = cell;
-                Debug.Log(cell);
+                //Debug.Log(cell);
             }
         }
 
@@ -53,5 +53,6 @@ public class ObstacleSelected : MonoBehaviour
         {
             this.gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.75f);
         }
+        cells = MapManager.instance.cell_matrix.GetAllCells();
     }
 }
