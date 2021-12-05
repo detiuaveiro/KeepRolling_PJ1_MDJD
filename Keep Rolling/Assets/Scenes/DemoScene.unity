@@ -1369,11 +1369,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1989024704}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3883693be657fed458466a234f57839a, type: 3}
+  m_Script: {fileID: 11500000, guid: 321985dd2292d754698d0bbb06583ca4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
   prefab: {fileID: 4147331339748317154, guid: 46bbdf0ff9dbe3e47b08133213f24fb8, type: 3}
+  tile: {fileID: 11400000, guid: 4d37198ae437472419b29f47de5798c2, type: 2}
 --- !u!114 &1989024707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1424,7 +1425,7 @@ MonoBehaviour:
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1989024706}
-          m_ObjectArgumentAssemblyTypeName: Obstacle, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: Piece, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
