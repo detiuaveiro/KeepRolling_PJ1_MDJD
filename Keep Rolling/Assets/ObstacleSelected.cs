@@ -30,6 +30,7 @@ public class ObstacleSelected : MonoBehaviour
             {
                 transform.position = place;
                 lastSnappedCell = cell;
+                Debug.Log(cell);
             }
         }
 
@@ -44,7 +45,8 @@ public class ObstacleSelected : MonoBehaviour
             }
             if (Input.GetButton("Fire1"))
             {
-                Debug.Log("placing");
+                if (MapManager.instance.PlaceTile(lastSnappedCell, piece))
+                    Debug.Log("placing");
                 Destroy(this.gameObject);
             }
         } else

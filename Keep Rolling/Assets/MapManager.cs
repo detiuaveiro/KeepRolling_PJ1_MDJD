@@ -70,7 +70,7 @@ public class MapManager : MonoBehaviour
     {
         foreach (var cell in cells)
         {
-            if (cell.getX() == x && cell.getY() == y && cell.getHeight() == height)
+            if (cell.getX() == x + height && cell.getY() == y + height && cell.getHeight() == height)
             {
                 return false;
             }
@@ -86,7 +86,7 @@ public class MapManager : MonoBehaviour
         //TODO: keep adding PieceTypes
         switch (piece.type) {
             case PieceType.Ramp:
-                return CanPlaceTileHere(cell.getX(), cell.getY(), cell.getHeight()+1);
+                return CanPlaceTileHere(cell.getVisualX(), cell.getVisualY(), cell.getHeight()+1);
             default:
                 return false;
         }
@@ -101,8 +101,8 @@ public class MapManager : MonoBehaviour
         switch (piece.type)
         {
             case PieceType.Ramp:
-                tilemaps[cell.getHeight() + 1].SetTile(new Vector3Int(cell.getX(),cell.getY(),0), piece.tile);
-                cells.Add(new TeleporterCell(cell.getX(), cell.getY(),cell.getHeight()));
+                tilemaps[cell.getHeight() + 1].SetTile(new Vector3Int(cell.getX() + 1,cell.getY() + 1,0), piece.tile);
+                cells.Add(new TeleporterCell(cell.getX() + 1, cell.getY() + 1, cell.getHeight()));
                 break;
             default:
                 return false;
