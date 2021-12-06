@@ -103,8 +103,8 @@ public class MapManager : MonoBehaviour
         switch (piece.type)
         {
             case PieceType.Ramp:
-                tilemaps[cell.getHeight() + 1].SetTile(new Vector3Int(cell.getX() + 1,cell.getY() + 1,0), piece.tile);
-                var new_cell = new TeleporterCell(cell.getX() + 1, cell.getY() + 1, cell.getHeight() + 1);
+                tilemaps[cell.getHeight() + 1].SetTile(new Vector3Int(cell.getX(),cell.getY(),0), piece.tile);
+                var new_cell = new TeleporterCell(cell.getX(), cell.getY(), cell.getHeight());
                 cell_matrix.AddCell(new_cell);
                 break;
             default:
