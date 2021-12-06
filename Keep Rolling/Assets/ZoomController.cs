@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ZoomController : MonoBehaviour
 {
+    public float maxSize;
+    public float minSize;
     Camera cameraC;
     // Start is called before the first frame update
     void Start()
@@ -14,6 +16,10 @@ public class ZoomController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        cameraC.orthographicSize -= Input.GetAxis("Mouse ScrollWheel");
+        float newSize = cameraC.orthographicSize - Input.GetAxis("Mouse ScrollWheel");
+        if (newSize > minSize && newSize < maxSize)
+        {
+            cameraC.orthographicSize = newSize;
+        }
     }
 }
