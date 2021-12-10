@@ -36,6 +36,9 @@ public class CellMatrix
     /// <param name="y">y position</param>
     /// <returns>The cell in that position, can return null</returns>
     public Cell GetCell(int x, int y) {
+        if (!HasCell(x, y))
+            return null;
+
         return cells[x - min_x, y - min_y];
     }
 
@@ -46,7 +49,7 @@ public class CellMatrix
     /// <param name="y">y position</param>
     /// <returns>boolean true if different than null</returns>
     public bool HasCell(int x, int y) {
-        return !(cells[x - min_x, y - min_y] is null);
+        return (x>=min_x && x<=max_x && y>=min_y && y<=max_y) && !(cells[x - min_x, y - min_y] is null);
     }
 
     /// <summary>
