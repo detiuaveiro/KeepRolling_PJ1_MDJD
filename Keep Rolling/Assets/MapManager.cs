@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System;
 
 public class MapManager : MonoBehaviour
 {
@@ -80,7 +81,7 @@ public class MapManager : MonoBehaviour
         */
     }
 
-    public bool CanPlaceTile(Cell cell, Piece piece) {
+    public bool CanPlaceTile(Cell cell, Piece piece, int height) {
 
         if (!cell.CanPlaceOnTop(piece.type))
             return false;
@@ -88,29 +89,68 @@ public class MapManager : MonoBehaviour
         //TODO: keep adding PieceTypes
         switch (piece.type) {
             case PieceType.Ramp:
-                return CanPlaceTileHere(cell.getVisualX(), cell.getVisualY(), cell.getHeight()+1);
+                return CanPlaceTileHere(cell.getVisualX(), cell.getVisualY(), cell.getHeight()+height);
             default:
                 return false;
         }
     }
 
-    public bool PlaceTile(Cell cell, Piece piece) {
+    public bool PlaceTile(Cell cell, Piece piece, int height) {
         
-        if (!CanPlaceTile(cell, piece))
+        if (!CanPlaceTile(cell, piece, height))
             return false;
 
         //TODO: keep adding PieceTypes
         switch (piece.type)
         {
             case PieceType.Ramp:
-                tilemaps[cell.getHeight() + 1].SetTile(new Vector3Int(cell.getX(),cell.getY(),0), piece.tile);
-                var new_cell = new TeleporterCell(cell.getX(), cell.getY(), cell.getHeight());
+                tilemaps[cell.getHeight() + height].SetTile(new Vector3Int(cell.getX()+height,cell.getY()+height,0), piece.tile);
+                var new_cell = new TeleporterCell(cell.getX()+height, cell.getY()+height, cell.getHeight()+height);
                 cell_matrix.AddCell(new_cell);
                 break;
             default:
                 return false;
         }
         return true;
+    }
+
+    public Tuple<Cell, int> GetLastSnappedCell(Vector3 mousePos, Piece piece) {
+
+        int offset = 0;
+        Vector3Int cellPos1 = tilemaps[0].WorldToCell(mousePos);
+        Cell lastSnappedCell = cell_matrix.GetCell(cellPos1.x, cellPos1.y);
+
+        //Debug.Log(lastSnappedCell);
+        if (lastSnappedCell is null || !CanPlaceTile(lastSnappedCell, piece, offset)) {
+            offset++;
+            lastSnappedCell = null;
+            while (offset  < tilemaps.Count)
+            {
+                Debug.Log("entrou");
+                cellPos1.x -= 1;
+                cellPos1.y -= 1;
+
+                Cell temp = cell_matrix.GetCell(cellPos1.x, cellPos1.y);
+                if (!(temp is null))
+                {
+                    if (CanPlaceTile(temp, piece, offset))
+                    {
+                        lastSnappedCell = temp;
+                        break;
+                    }
+                    /*
+                    if (!temp.CanPlaceOnTop(piece.type))
+                    {
+                        break;
+                    }
+                    */
+                }
+                //Debug.Log(lastSnappedCell);
+                offset++;
+            }
+            Debug.Log("saiu");
+        }
+        return Tuple.Create(lastSnappedCell, offset);
     }
 
 
