@@ -6,12 +6,10 @@ using UnityEngine;
 public class Move : Command
 {
     public Cell destination;
-    public Transform transform;
 
-    public Move(Cell destCell, Transform trans)
+    public Move(Cell destCell)
     {
         this.destination = destCell;
-        this.transform = trans;
     }
     public override void Execute()
     {

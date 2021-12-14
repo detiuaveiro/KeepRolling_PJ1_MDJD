@@ -29,11 +29,11 @@ public class ChairMovementController : MonoBehaviour
     IEnumerator ExampleCoroutine()
     {
         yield return new WaitForSeconds(2);
-        Move move = new(MapManager.instance.cell_matrix.GetCell(-1, -2), this.gameObject.transform);
+        Move move = new(MapManager.instance.cell_matrix.GetCell(-1, -2));
         commandQueue.Enqueue(move);
-        Move move2 = new(MapManager.instance.cell_matrix.GetCell(-1, -3), this.gameObject.transform);
+        Move move2 = new(MapManager.instance.cell_matrix.GetCell(-1, -3));
         commandQueue.Enqueue(move2);
-        Move move3 = new(MapManager.instance.cell_matrix.GetCell(-2, -3), this.gameObject.transform);
+        Move move3 = new(MapManager.instance.cell_matrix.GetCell(-2, -3));
         commandQueue.Enqueue(move3);
     }
     // Update is called once per frame
