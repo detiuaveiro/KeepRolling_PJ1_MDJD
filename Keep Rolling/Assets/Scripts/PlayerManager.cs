@@ -16,28 +16,33 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        float off = Random.Range(0f, 1f);
-        Debug.Log(off);
+        float x_off = Random.Range(0f, 1f);
+        Debug.Log(x_off);
         int new_x = x;
-        int new_y = y;
-        if (off < 0.25)
+        if (x_off < 0.40)
         {
             new_x -= 1;
         }
-        else if (off < 0.50)
+        else if (x_off < 0.80)
         {
             new_x += 1;
         }
-        else if (off < 0.75)
+
+        float y_off = Random.Range(0f, 1f);
+        int new_y = y;
+        if (y_off < 0.40)
         {
             new_y -= 1;
         }
-        else
+        else if (y_off < 0.80)
         {
             new_y += 1;
         }
 
         Cell cell = MapManager.instance.cell_matrix.GetCell(new_x, new_y);
+        Debug.Log(new_x);
+        Debug.Log(new_y);
+        Debug.Log(cell);
         if (!(cell is null) && cell.getHeight() < 1)
         {
             ChairMovementController.instance.commandQueue.Enqueue(new Move(cell));
