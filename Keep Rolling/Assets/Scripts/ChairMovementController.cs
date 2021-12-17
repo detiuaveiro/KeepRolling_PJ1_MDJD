@@ -7,7 +7,7 @@ public class ChairMovementController : MonoBehaviour
     public static ChairMovementController instance;
 
     private List<Command> commandLog = new List<Command>();
-    private Queue<Command> commandQueue = new Queue<Command>();
+    public Queue<Command> commandQueue = new Queue<Command>();
 
     private bool moving = false;
     public Vector3 nextPosition;
@@ -23,7 +23,7 @@ public class ChairMovementController : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(ExampleCoroutine());
+        //StartCoroutine(ExampleCoroutine());
     }
     // Example
     IEnumerator ExampleCoroutine()
