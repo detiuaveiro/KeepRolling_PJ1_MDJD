@@ -16,25 +16,22 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        float x_off = Random.Range(0f, 1f);
-        Debug.Log(x_off);
+        float off = Random.Range(0f, 1f);
         int new_x = x;
-        if (x_off < 0.40)
+        int new_y = y;
+        if (off < 0.25)
         {
             new_x -= 1;
         }
-        else if (x_off < 0.80)
+        else if (off < 0.50)
         {
             new_x += 1;
         }
-
-        float y_off = Random.Range(0f, 1f);
-        int new_y = y;
-        if (y_off < 0.40)
+        else if (off < 0.75)
         {
             new_y -= 1;
         }
-        else if (y_off < 0.80)
+        else
         {
             new_y += 1;
         }
