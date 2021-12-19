@@ -13,6 +13,9 @@ public class ChairMovementController : MonoBehaviour
 
     private bool moving = false;
     public Vector3 nextPosition;
+    public Cell cellDestination;
+    private List<Cell> cellsToRestoreTransparency;
+
     public int heightLevel;
     private void Awake()
     {
@@ -24,20 +27,9 @@ public class ChairMovementController : MonoBehaviour
         instance = this;
     }
 
-    void Start()
+    private void Start()
     {
-        //StartCoroutine(ExampleCoroutine());
-    }
-    // Example
-    IEnumerator ExampleCoroutine()
-    {
-        yield return new WaitForSeconds(2);
-        Move move = new(MapManager.instance.cell_matrix.GetCell(-1, -2));
-        commandQueue.Enqueue(move);
-        Move move2 = new(MapManager.instance.cell_matrix.GetCell(-1, -3));
-        commandQueue.Enqueue(move2);
-        Move move3 = new(MapManager.instance.cell_matrix.GetCell(-2, -3));
-        commandQueue.Enqueue(move3);
+        cellsToRestoreTransparency = new List<Cell>();
     }
 
     void changeRenderingLayer()
@@ -55,7 +47,66 @@ public class ChairMovementController : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
+    void applyTransparencyToCells()
+    {
+        if (cellsToRestoreTransparency.Count > 0)
+        {
+            for (int i = 0; i < cellsToRestoreTransparency.Count; i++)
+            {
+                Color color2 = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+                MapManager.instance.tilemaps[cellsToRestoreTransparency[i].getHeight()].SetColor(new Vector3Int(cellsToRestoreTransparency[i].getX(), cellsToRestoreTransparency[i].getY(), 0), color2);
+                
+            }
+            cellsToRestoreTransparency = new List<Cell>();
+        }
+        Cell cellY = MapManager.instance.cell_matrix.GetCell(cellDestination.getX(), cellDestination.getY() - 1);
+        if (cellY != null && cellY.getHeight() > cellDestination.getHeight())
+        {
+            Color color = new Color(1.0f, 1.0f, 1.0f, 0.3f);
+            cellsToRestoreTransparency.Add(cellY);
+            MapManager.instance.tilemaps[cellY.getHeight()].SetColor(new Vector3Int(cellY.getX(), cellY.getY(), 0), color);
+            Cell cell2 = MapManager.instance.cell_matrix.GetCell(cellDestination.getX() + 1, cellDestination.getY() - 1);
+            Cell cell3 = MapManager.instance.cell_matrix.GetCell(cellDestination.getX() - 1, cellDestination.getY() - 1);
+            if (cell2 != null && cell2.getHeight() > cellDestination.getHeight())
+            {
+                MapManager.instance.tilemaps[cell2.getHeight()].SetColor(new Vector3Int(cell2.getX(), cell2.getY(), 0), color);
+                cellsToRestoreTransparency.Add(cell2);
+            }
+            if (cell3 != null && cell3.getHeight() > cellDestination.getHeight())
+            {
+                MapManager.instance.tilemaps[cell3.getHeight()].SetColor(new Vector3Int(cell3.getX(), cell3.getY(), 0), color);
+                cellsToRestoreTransparency.Add(cell3);
+            }
+        }
+        Cell cellX = MapManager.instance.cell_matrix.GetCell(cellDestination.getX() - 1, cellDestination.getY());
+        if (cellX != null && cellX.getHeight() > cellDestination.getHeight())
+        {
+            Color color = new Color(1.0f, 1.0f, 1.0f, 0.3f);
+            cellsToRestoreTransparency.Add(cellX);
+            MapManager.instance.tilemaps[cellX.getHeight()].SetColor(new Vector3Int(cellX.getX(), cellX.getY(), 0), color);
+            Cell cell2 = MapManager.instance.cell_matrix.GetCell(cellDestination.getX() - 1, cellDestination.getY() - 1);
+            Cell cell3 = MapManager.instance.cell_matrix.GetCell(cellDestination.getX() - 1, cellDestination.getY() + 1);
+            if (cell2 != null && cell2.getHeight() > cellDestination.getHeight())
+            {
+                MapManager.instance.tilemaps[cell2.getHeight()].SetColor(new Vector3Int(cell2.getX(), cell2.getY(), 0), color);
+                cellsToRestoreTransparency.Add(cell2);
+            }
+            if (cell3 != null && cell3.getHeight() > cellDestination.getHeight())
+            {
+                MapManager.instance.tilemaps[cell3.getHeight()].SetColor(new Vector3Int(cell3.getX(), cell3.getY(), 0), color);
+                cellsToRestoreTransparency.Add(cell3);
+            }
+        }
+        Cell cellXY = MapManager.instance.cell_matrix.GetCell(cellDestination.getX() - 1, cellDestination.getY()-1);
+        if (cellXY != null && cellXY.getHeight() > cellDestination.getHeight())
+        {
+            Color color = new Color(1.0f, 1.0f, 1.0f, 0.3f);
+            cellsToRestoreTransparency.Add(cellXY);
+            MapManager.instance.tilemaps[cellXY.getHeight()].SetColor(new Vector3Int(cellXY.getX(), cellXY.getY(), 0), color);
+        }
+    }
+            // Update is called once per frame
+            
     void Update()
     {
         if (!moving && commandQueue.Count > 0)
@@ -65,7 +116,8 @@ public class ChairMovementController : MonoBehaviour
             command.Execute();
 
             changeRenderingLayer();
-    
+            applyTransparencyToCells();
+
             moving = true;
         }
 
