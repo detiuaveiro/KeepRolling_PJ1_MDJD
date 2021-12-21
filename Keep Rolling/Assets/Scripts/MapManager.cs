@@ -18,9 +18,9 @@ public class MapManager : MonoBehaviour
         }
 
         instance = this;
-
+        MapLoader.loadLevel(tilemaps);
         CreateCellGrid();
-
+        
     }
     private void CreateCellGrid()
     {
