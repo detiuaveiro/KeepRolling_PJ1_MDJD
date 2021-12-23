@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 
 public class MapLoader 
 {
-    private static string defaultGroundTile = "groundBlockTile";
+    private static string defaultGroundTile = "asfaltoTile";
 
     [System.Serializable]
     private class TileColor
@@ -81,10 +81,11 @@ public class MapLoader
                         int height = (int)pixel.r / 10;
                         if (tilemaps[height] != null)
                         {
-                            tilemaps[height].SetTile(new Vector3Int(i + height, j + height, 0), newTile);
-                            for (int k =0; k < height; k++) {
-                                tilemaps[k].SetTile(new Vector3Int(i+k, j+k , 0), defaultGroundTile);
-                            }
+                            Debug.Log("painting");
+                            tilemaps[height].SetTile(new Vector3Int( j  , image.width - i +1, 0), newTile);
+                            /*for (int k =0; k < height; k++) {
+                                tilemaps[k].SetTile(new Vector3Int(j + k, image.width - i +k , 0), defaultGroundTile);
+                            }*/
                         }
                     }
                 }
