@@ -2934,7 +2934,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   prefab: {fileID: 4147331339748317154, guid: 46bbdf0ff9dbe3e47b08133213f24fb8, type: 3}
-  tile: {fileID: 11400000, guid: 4d37198ae437472419b29f47de5798c2, type: 2}
+  tile: {fileID: 11400000, guid: 706a1a9a627077746a3e3d2228632963, type: 2}
 --- !u!114 &1989024707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3011,7 +3011,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5a47afb6d3e7ae24b80f20e41731a327, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 44fbf79e17bd817469cb8689030a2e3b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

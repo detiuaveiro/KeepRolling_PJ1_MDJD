@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5a47afb6d3e7ae24b80f20e41731a327, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 44fbf79e17bd817469cb8689030a2e3b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,3 +99,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tile: {fileID: 0}
   grid: {fileID: 0}
+  piece: {fileID: 0}
