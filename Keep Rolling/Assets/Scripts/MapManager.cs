@@ -10,6 +10,9 @@ public class MapManager : MonoBehaviour
     public List<Tilemap> tilemaps;
     //public List<Cell> cells;
     public CellMatrix cell_matrix;
+
+    public Vector3Int startPosition;
+    public Vector3Int endPosition;
     void Start()
     {
         if (instance != null)

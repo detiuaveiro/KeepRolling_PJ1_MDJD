@@ -89,10 +89,10 @@ public class MapLoader
                             int special = (int)((division - Math.Truncate(division)) * 10.0f);
                             if (special == 1)
                             {
-                                Debug.Log("Starting position:" + j + "," + (image.width - i + 1));
+                                MapManager.instance.startPosition = new Vector3Int(j, image.width - i + 1, height);
                             } else if (special == 2)
                             {
-                                Debug.Log("Ending position:" + j + "," + (image.width - i + 1));
+                                MapManager.instance.endPosition = new Vector3Int(j, image.width - i + 1, height);
                             }
                         }
                     }
