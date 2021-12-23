@@ -64,7 +64,7 @@ public class MapLoader
         TextAsset jsonFile = Resources.Load<TextAsset>("Tiles/tileAssociaton");
         Tiles tilesData = JsonUtility.FromJson<Tiles>(jsonFile.text);
 
-        IsometricRuleTile defaultGroundTile = Resources.Load<IsometricRuleTile>("Tiles/" + MapLoader.defaultGroundTile);
+        //IsometricRuleTile defaultGroundTile = Resources.Load<IsometricRuleTile>("Tiles/" + MapLoader.defaultGroundTile);
 
         Texture2D image = (Texture2D)Resources.Load("Levels/Level1");
         for (int i = 0; i < image.width; i++)
@@ -78,14 +78,22 @@ public class MapLoader
                     IsometricRuleTile newTile = Resources.Load<IsometricRuleTile>("Tiles/" + tile);
                     if (newTile != null)
                     {
-                        int height = (int)pixel.r / 10;
+                        float division = pixel.r / 10.0f;
+                        int height = (int)division;
                         if (tilemaps[height] != null)
                         {
-                            Debug.Log("painting");
                             tilemaps[height].SetTile(new Vector3Int( j  , image.width - i +1, 0), newTile);
                             /*for (int k =0; k < height; k++) {
                                 tilemaps[k].SetTile(new Vector3Int(j + k, image.width - i +k , 0), defaultGroundTile);
                             }*/
+                            int special = (int)((division - Math.Truncate(division)) * 10.0f);
+                            if (special == 1)
+                            {
+                                Debug.Log("Starting position:" + j + "," + (image.width - i + 1));
+                            } else if (special == 2)
+                            {
+                                Debug.Log("Ending position:" + j + "," + (image.width - i + 1));
+                            }
                         }
                     }
                 }
