@@ -2253,6 +2253,7 @@ MonoBehaviour:
   ChairSprite: {fileID: 1555901979}
   nextPosition: {x: 0, y: 0, z: 0}
   heightLevel: 0
+  animator: {fileID: 1555901981}
 --- !u!4 &383797196
 Transform:
   m_ObjectHideFlags: 0
