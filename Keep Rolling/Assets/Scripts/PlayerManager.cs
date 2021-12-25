@@ -37,9 +37,6 @@ public class PlayerManager : MonoBehaviour
         }
 
         Cell cell = MapManager.instance.cell_matrix.GetCell(new_x, new_y);
-        Debug.Log(new_x);
-        Debug.Log(new_y);
-        Debug.Log(cell);
         if (!(cell is null) && cell.getHeight() < 1)
         {
             ChairMovementController.instance.commandQueue.Enqueue(new Move(cell));
