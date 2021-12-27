@@ -11,7 +11,6 @@ public class Cell
     protected int visual_y { get; }
     protected int height { get; }
     protected bool walkable;
-    protected List<Tuple<int,int,int>> possible_positions;
 
     public Cell(int x, int y, int height, bool walkable) {
         this.x = x;
@@ -20,30 +19,23 @@ public class Cell
         this.walkable = walkable;
         this.visual_x = x - height;
         this.visual_y = y - height;
-        possible_positions = new List<Tuple<int, int,int>>();
     }
 
     public bool IsWalkable() {
         return this.walkable;
     }
 
-    public bool IsNextPositionValid(int x, int y, int height) {
-        return possible_positions.Contains(Tuple.Create(x, y, height));
-    }
-
     public virtual bool CanPlaceOnTop(PieceType pieceType) {
         return false;
-    }
-
-    public void OnEnter() { 
-    }
-
-    public void OnLeave() {
     }
 
     public override string ToString()
     {
         return $"Cell x:{x} y:{y}, height:{height}";
+    }
+
+    public virtual List<Vector3> getPossiblePositions() {
+        return new List<Vector3>();
     }
 
     public Vector2 getPosition()
@@ -54,6 +46,10 @@ public class Cell
     public Vector2 getVisualPosition()
     {
         return new Vector2(visual_x, visual_y);
+    }
+
+    public Vector3 getVisualHeightPosition() {
+        return new Vector3(visual_x, visual_y, height);
     }
 
     public int getX()
