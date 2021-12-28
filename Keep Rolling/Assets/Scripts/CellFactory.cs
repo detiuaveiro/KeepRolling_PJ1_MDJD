@@ -20,4 +20,20 @@ public class CellFactory
                 return new Cell(x, y, height, false);
         }
     }
+    public static Cell CreateCellFromCellName(int x, int y, int height, string cellName)
+    {
+        switch (cellName)
+        {
+
+            case "Ground":
+                return new GroundCell(x, y, height);
+
+            case "BrokenGround":
+                return new BrokenGroundCell(x, y, height);
+
+            // not walkable
+            default:
+                return new Cell(x, y, height, false);
+        }
+    }
 }

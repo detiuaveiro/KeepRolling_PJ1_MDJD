@@ -5,14 +5,16 @@
                 "G": 10,
                 "B": 1
             },
-            "tileName": "asfaltoTile"
+            "tileName": "asfaltoTile",
+            "cellType":  "Ground"
         },
         {
             "color":{
                 "G": 50,
                 "B": 20
             },
-            "tileName": "calcadaDir"
+            "tileName": "calcadaDir",
+            "cellType": "Ground" 
         }
     ]
 }

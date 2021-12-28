@@ -21,10 +21,38 @@ public class MapManager : MonoBehaviour
         }
 
         instance = this;
-        MapLoader.loadLevel(tilemaps);
-        CreateCellGrid();
+        List<Cell> cellList = MapLoader.loadLevel(tilemaps);
+        CreateCellGridFromList(cellList);
         
     }
+    private void CreateCellGridFromList(List<Cell> cellList) 
+    {
+        int min_y = 1000, min_x = 1000, max_y = -1000, max_x = -1000;
+
+        foreach(Cell cell in cellList)
+        {
+            min_x = Mathf.Min(min_x, cell.getVisualX());
+            min_y = Mathf.Min(min_y, cell.getVisualY());
+            max_x = Mathf.Max(max_x, cell.getVisualX());
+            max_y = Mathf.Max(max_y, cell.getVisualY());
+        }
+
+        cell_matrix = new CellMatrix(min_x, min_y, max_x, max_y);
+        Debug.Log(min_x);
+        Debug.Log(min_y);
+        Debug.Log(max_x);
+        Debug.Log(max_y);
+
+        foreach(Cell cell in cellList)
+        {
+            cell_matrix.AddCell(cell);
+            Debug.Log(cell);
+        }
+
+
+
+    }
+
     private void CreateCellGrid()
     {
         var cell_list = new List<Cell>();
