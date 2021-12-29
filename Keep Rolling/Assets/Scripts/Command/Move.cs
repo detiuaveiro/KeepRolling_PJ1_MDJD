@@ -21,4 +21,9 @@ public class Move : Command
             ChairMovementController.instance.cellDestination = this.destination;
         }
     }
+
+    public override void Undo()
+    {
+        throw new System.NotImplementedException();
+    }
 }
