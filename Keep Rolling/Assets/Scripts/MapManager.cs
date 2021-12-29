@@ -40,10 +40,9 @@ public class MapManager : MonoBehaviour
     private IEnumerator SolveLevel() {
         Debug.Log(startPosition);
         Debug.Log(endPosition);
-        startPosition = new Vector3Int(6, 15, 0);
+        startPosition = new Vector3Int(2, 6, 0);
         //endPosition = new Vector3Int(2, 6, 0);
-        var endpos1 = new Vector3Int(endPosition.x+endPosition.z,endPosition.y+ endPosition.z, 0);
-        ChairMovementController.instance.transform.position = tilemaps[endPosition.z].CellToWorld(endpos1);
+        ChairMovementController.instance.transform.position = tilemaps[startPosition.z].CellToWorld(startPosition);
         foreach (Cell cell in cell_matrix.GetAllCells())
         {
             Debug.Log($"blablabla {cell}");
@@ -59,7 +58,7 @@ public class MapManager : MonoBehaviour
         Debug.Log(searchTree.solution);
         Debug.Log(searchTree.nodes_explored);
         Debug.Log(searchTree.open_nodes.Count);
-        ChairMovementController.instance.transform.position = tilemaps[startPosition.z].CellToWorld(startPosition);
+
         foreach (Command move in searchTree.GetCommandSolution())
         {
             Debug.Log(((Move)move).destination);

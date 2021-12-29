@@ -11,6 +11,7 @@ public class SearchTree
     public List<SearchNode> open_nodes;
     public SearchNode solution;
     public int nodes_explored;
+    public int max_depth = 40;
 
     public SearchTree(Vector3 initial, Vector3 goal, CellMatrix domain) {
         this.initial = initial;
@@ -56,22 +57,16 @@ public class SearchTree
     public List<SearchNode> DefineNewNodes(SearchNode node) {
         List<SearchNode> nodeList = new List<SearchNode>();
         Cell original_cell = domain.GetCell((int)node.playerPosition.x, (int)node.playerPosition.y);
-        Debug.Log($"BANANA {original_cell}");
+        //Debug.Log($"BANANA {original_cell}");
         Cell cell1 = domain.GetCell((int)node.playerPosition.x + 1, (int)node.playerPosition.y);
         Cell cell2 = domain.GetCell((int)node.playerPosition.x - 1, (int)node.playerPosition.y);
         Cell cell3 = domain.GetCell((int)node.playerPosition.x, (int)node.playerPosition.y + 1);
         Cell cell4 = domain.GetCell((int)node.playerPosition.x, (int)node.playerPosition.y - 1);
-        /*
-        Debug.Log($"cell1 {original_cell}");
-        Debug.Log($"cell2 {original_cell}");
-        Debug.Log($"cell3 {original_cell}");
-        Debug.Log($"cell4 {original_cell}");
-        */
         List<Cell> cellList = new List<Cell>() {cell1, cell2, cell3, cell4};
         foreach (Cell cell in cellList) {
             //if (node.depth + 1 < 40 && CanWalkToCell(cell, original_cell)) {
-            if (node.depth+1 < 20 && CanWalkToCell(original_cell, cell) && !(node.PositionInParent(cell.getVisualHeightPosition()))) {
-                Debug.Log($"AQUI {cell}");
+            if (node.depth+1 < max_depth && CanWalkToCell(original_cell, cell) && !(node.PositionInParent(cell.getVisualHeightPosition()))) {
+                //Debug.Log($"AQUI {cell}");
                 SearchNode new_node = new SearchNode(cell.getVisualHeightPosition(), node, node.depth + 1, node.cost + 1, Heuristic(cell), new Move(cell));
                 //TODO: check if it is repeated
                 nodeList.Add(new_node);
