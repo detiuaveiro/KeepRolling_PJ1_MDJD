@@ -13,6 +13,7 @@ public class MapManager : MonoBehaviour
 
     public Vector3Int startPosition;
     public Vector3Int endPosition;
+    public bool solve = false;
     void Start()
     {
         if (instance != null)
@@ -23,8 +24,52 @@ public class MapManager : MonoBehaviour
         instance = this;
         List<Cell> cellList = MapLoader.loadLevel(tilemaps);
         CreateCellGridFromList(cellList);
-        
+
+
+
     }
+
+    void Update()
+    {
+        if (solve) {
+            solve = false;
+            StartCoroutine(SolveLevel());
+        }
+    }
+
+    private IEnumerator SolveLevel() {
+        Debug.Log(startPosition);
+        Debug.Log(endPosition);
+        startPosition = new Vector3Int(6, 15, 0);
+        //endPosition = new Vector3Int(2, 6, 0);
+        var endpos1 = new Vector3Int(endPosition.x+endPosition.z,endPosition.y+ endPosition.z, 0);
+        ChairMovementController.instance.transform.position = tilemaps[endPosition.z].CellToWorld(endpos1);
+        foreach (Cell cell in cell_matrix.GetAllCells())
+        {
+            Debug.Log($"blablabla {cell}");
+        }
+        SearchTree searchTree = new SearchTree(startPosition, endPosition, cell_matrix);
+        StartCoroutine(searchTree.search());
+        while (true) {
+            if (!(searchTree.solution is null)) {
+                break;
+            }
+            yield return null;
+        }
+        Debug.Log(searchTree.solution);
+        Debug.Log(searchTree.nodes_explored);
+        Debug.Log(searchTree.open_nodes.Count);
+        ChairMovementController.instance.transform.position = tilemaps[startPosition.z].CellToWorld(startPosition);
+        foreach (Command move in searchTree.GetCommandSolution())
+        {
+            Debug.Log(((Move)move).destination);
+            ChairMovementController.instance.commandQueue.Enqueue((Move)move);
+        }
+        yield return null;
+
+    }
+
+
     private void CreateCellGridFromList(List<Cell> cellList) 
     {
         int min_y = 1000, min_x = 1000, max_y = -1000, max_x = -1000;
@@ -115,12 +160,14 @@ public class MapManager : MonoBehaviour
     public bool CanPlaceTile(Cell cell, Piece piece, int height) {
 
         if (!cell.CanPlaceOnTop(piece.type))
+        {
             return false;
+        }
 
         //TODO: keep adding PieceTypes
         switch (piece.type) {
             case PieceType.Ramp:
-                return CanPlaceTileHere(cell.getVisualX(), cell.getVisualY(), cell.getHeight()+height);
+                return CanPlaceTileHere(cell.getVisualX(), cell.getVisualY(), cell.getHeight()+1+height);
             default:
                 return false;
         }
@@ -135,8 +182,8 @@ public class MapManager : MonoBehaviour
         switch (piece.type)
         {
             case PieceType.Ramp:
-                tilemaps[cell.getHeight() + height].SetTile(new Vector3Int(cell.getX()+height,cell.getY()+height,0), piece.tile);
-                var new_cell = new TeleporterCell(cell.getX()+height, cell.getY()+height, cell.getHeight()+height);
+                tilemaps[cell.getHeight() + height + 1].SetTile(new Vector3Int(cell.getX()+height,cell.getY()+height,0), piece.tile);
+                var new_cell = new RampCell(cell.getX()+1+height, cell.getY()+1+height, cell.getHeight()+height + 1,"Up");
                 cell_matrix.AddCell(new_cell);
                 break;
             default:
@@ -150,8 +197,8 @@ public class MapManager : MonoBehaviour
         int offset = 0;
         Vector3Int cellPos1 = tilemaps[0].WorldToCell(mousePos);
         Cell lastSnappedCell = cell_matrix.GetCell(cellPos1.x, cellPos1.y);
-
-        //Debug.Log(lastSnappedCell);
+        Debug.Log($"SNAPPED {lastSnappedCell}");
+        Debug.Log($"SNAPPED {CanPlaceTile(lastSnappedCell, piece, offset)}");
         if (lastSnappedCell is null || !CanPlaceTile(lastSnappedCell, piece, offset)) {
             offset++;
             lastSnappedCell = null;

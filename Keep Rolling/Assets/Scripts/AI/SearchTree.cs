@@ -10,29 +10,36 @@ public class SearchTree
     public CellMatrix domain;
     public List<SearchNode> open_nodes;
     public SearchNode solution;
+    public int nodes_explored;
 
     public SearchTree(Vector3 initial, Vector3 goal, CellMatrix domain) {
         this.initial = initial;
         this.goal = goal;
         this.domain = domain;
         SearchNode root = new SearchNode(initial, null, 0, 0, 0, new Move(domain.GetCell((int)initial.x,(int)initial.y)));
+        Debug.Log(root);
         open_nodes = new List<SearchNode> { root };
         solution = null;
+        this.nodes_explored = 0;
     }
 
-    public bool search() {
-        while (open_nodes.Count > 0) {
+    public IEnumerator search() {
+        while (open_nodes.Count > 0 && solution is null) {
             SearchNode node = open_nodes[0];
             open_nodes.RemoveAt(0);
+            nodes_explored++;
+            Debug.Log($"STATS {nodes_explored},{open_nodes.Count},{node.depth},{node.heuristic}");
             if (node.playerPosition == goal) {
                 solution = node;
-                return true;
+                yield return null;
             }
             List<SearchNode> new_nodes = DefineNewNodes(node);
             open_nodes.AddRange(new_nodes);
-            open_nodes.Sort((n1,n2) => n1.heuristic.CompareTo(n2.heuristic));
+            open_nodes.Sort((n1,n2) => (n1.heuristic+n1.cost).CompareTo(n2.heuristic+n2.cost));
+            yield return null;
         }
-        return false;
+        Debug.Log("end");
+        yield return null;
     }
 
     public List<Command> GetCommandSolution() {
@@ -49,13 +56,22 @@ public class SearchTree
     public List<SearchNode> DefineNewNodes(SearchNode node) {
         List<SearchNode> nodeList = new List<SearchNode>();
         Cell original_cell = domain.GetCell((int)node.playerPosition.x, (int)node.playerPosition.y);
+        Debug.Log($"BANANA {original_cell}");
         Cell cell1 = domain.GetCell((int)node.playerPosition.x + 1, (int)node.playerPosition.y);
         Cell cell2 = domain.GetCell((int)node.playerPosition.x - 1, (int)node.playerPosition.y);
         Cell cell3 = domain.GetCell((int)node.playerPosition.x, (int)node.playerPosition.y + 1);
         Cell cell4 = domain.GetCell((int)node.playerPosition.x, (int)node.playerPosition.y - 1);
+        /*
+        Debug.Log($"cell1 {original_cell}");
+        Debug.Log($"cell2 {original_cell}");
+        Debug.Log($"cell3 {original_cell}");
+        Debug.Log($"cell4 {original_cell}");
+        */
         List<Cell> cellList = new List<Cell>() {cell1, cell2, cell3, cell4};
         foreach (Cell cell in cellList) {
-            if (CanWalkToCell(cell, original_cell)) {
+            //if (node.depth + 1 < 40 && CanWalkToCell(cell, original_cell)) {
+            if (node.depth+1 < 20 && CanWalkToCell(original_cell, cell) && !(node.PositionInParent(cell.getVisualHeightPosition()))) {
+                Debug.Log($"AQUI {cell}");
                 SearchNode new_node = new SearchNode(cell.getVisualHeightPosition(), node, node.depth + 1, node.cost + 1, Heuristic(cell), new Move(cell));
                 //TODO: check if it is repeated
                 nodeList.Add(new_node);
@@ -83,27 +99,33 @@ public class SearchTree
                 }
                 else if (dest is RampCell)
                 {
+                    Debug.Log($"ESTOU AQUI {src},{dest}");
                     Vector3 srcHeightPos = src.getVisualHeightPosition();
                     foreach (Vector3 pos in dest.getPossiblePositions())
                     {
                         if (pos == srcHeightPos)
                         {
+                            Debug.Log($"ESTOU AQUI {true}");
                             return true;
                         }
                     }
+                    Debug.Log($"ESTOU AQUI {false}");
                     return false;
                 }
             }
             else if (src is RampCell)
             {
+                Debug.Log($"ESTOU AQUI2 {src},{dest}");
                 Vector3 destHeightPos = dest.getVisualHeightPosition();
                 foreach (Vector3 pos in src.getPossiblePositions())
                 {
                     if (pos == destHeightPos)
                     {
+                        Debug.Log($"ESTOU AQUI2 {true}");
                         return true;
                     }
                 }
+                Debug.Log($"ESTOU AQUI2 {false}");
                 return false;
             }
         }

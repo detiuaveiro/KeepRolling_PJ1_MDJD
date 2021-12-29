@@ -16,8 +16,8 @@ public class RampCell : TeleporterCell
         List<Vector3> ret = new List<Vector3>();
         switch (direction) {
             case "Up":
-                ret.Add(new Vector3(visual_x, visual_y - 1, height - 1));
-                ret.Add(new Vector3(visual_x, visual_y + 1, height));
+                ret.Add(new Vector3(visual_x - 1, visual_y, height - 1));
+                ret.Add(new Vector3(visual_x + 1, visual_y, height));
                 break;
             default:
                 break;

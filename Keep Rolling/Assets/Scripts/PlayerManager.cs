@@ -16,6 +16,7 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        /*
         float off = Random.Range(0f, 1f);
         int new_x = x;
         int new_y = y;
@@ -43,5 +44,6 @@ public class PlayerManager : MonoBehaviour
             x = new_x;
             y = new_y;
         }
+        */
     }
 }

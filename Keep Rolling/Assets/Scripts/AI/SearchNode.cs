@@ -24,8 +24,24 @@ public class SearchNode
         if (parent is null) {
             return new List<SearchNode> {this};
         }
-        List<SearchNode> ret = GetParents();
+        List<SearchNode> ret = parent.GetParents();
         ret.Add(this);
         return ret;
     }
+
+    public bool PositionInParent(Vector3 position) {
+        if (parent is null) 
+            return false;
+
+        if (parent.playerPosition == position)
+            return true;
+
+        return parent.PositionInParent(position);
+    }
+
+    public override string ToString()
+    {
+        return $"SearchNode position:{playerPosition} depth:{depth} parent:{parent} ";
+    }
+
 }
