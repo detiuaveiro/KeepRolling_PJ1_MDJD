@@ -11,6 +11,7 @@ public class Cell
     protected int visual_y { get; }
     protected int height { get; }
     protected bool walkable;
+    protected Vector3 visualHeightPosition;
 
     public Cell(int x, int y, int height, bool walkable) {
         this.x = x;
@@ -19,6 +20,8 @@ public class Cell
         this.walkable = walkable;
         this.visual_x = x - height;
         this.visual_y = y - height;
+        this.visualHeightPosition = new Vector3(visual_x, visual_y, height);
+
     }
 
     public bool IsWalkable() {
@@ -49,7 +52,7 @@ public class Cell
     }
 
     public Vector3 getVisualHeightPosition() {
-        return new Vector3(visual_x, visual_y, height);
+        return visualHeightPosition;
     }
 
     public int getX()

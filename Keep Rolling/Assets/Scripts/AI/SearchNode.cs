@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class SearchNode
 {
@@ -8,10 +9,10 @@ public class SearchNode
     public SearchNode parent;
     public int depth;
     public int cost;
-    public float heuristic;
+    public double heuristic;
     public Command action;
 
-    public SearchNode(Vector3 playerPosition, SearchNode parent, int depth, int cost, float heuristic, Command action) {
+    public SearchNode(Vector3 playerPosition, SearchNode parent, int depth, int cost, double heuristic, Command action) {
         this.playerPosition = playerPosition;
         this.parent = parent;
         this.depth = depth;
@@ -30,6 +31,14 @@ public class SearchNode
     }
 
     public bool PositionInParent(Vector3 position) {
+        SearchNode node = this;
+        while (!(node.parent is null)) {
+            if (node.parent.playerPosition == position)
+                return true;
+            node = node.parent;
+        }
+        return false;
+        /*
         if (parent is null) 
             return false;
 
@@ -37,6 +46,7 @@ public class SearchNode
             return true;
 
         return parent.PositionInParent(position);
+        */
     }
 
     public override string ToString()

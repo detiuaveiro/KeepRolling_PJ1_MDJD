@@ -43,10 +43,11 @@ public class MapManager : MonoBehaviour
         startPosition = new Vector3Int(2, 6, 0);
         //endPosition = new Vector3Int(2, 6, 0);
         ChairMovementController.instance.transform.position = tilemaps[startPosition.z].CellToWorld(startPosition);
+        /*
         foreach (Cell cell in cell_matrix.GetAllCells())
         {
             Debug.Log($"blablabla {cell}");
-        }
+        }*/
         SearchTree searchTree = new SearchTree(startPosition, endPosition, cell_matrix);
         StartCoroutine(searchTree.search());
         while (true) {
@@ -196,8 +197,6 @@ public class MapManager : MonoBehaviour
         int offset = 0;
         Vector3Int cellPos1 = tilemaps[0].WorldToCell(mousePos);
         Cell lastSnappedCell = cell_matrix.GetCell(cellPos1.x, cellPos1.y);
-        Debug.Log($"SNAPPED {lastSnappedCell}");
-        Debug.Log($"SNAPPED {CanPlaceTile(lastSnappedCell, piece, offset)}");
         if (lastSnappedCell is null || !CanPlaceTile(lastSnappedCell, piece, offset)) {
             offset++;
             lastSnappedCell = null;

@@ -3,44 +3,85 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+
 public class SearchTree 
 {
     public Vector3 initial;
     public Vector3 goal;
     public CellMatrix domain;
-    public List<SearchNode> open_nodes;
+    //public List<SearchNode> open_nodes;
+    public LinkedList<SearchNode> open_nodes;
     public SearchNode solution;
     public int nodes_explored;
     public int max_depth = 40;
+    public Dictionary<Vector3, int> positions_done;
+    private List<SearchNode> new_node_list;
 
     public SearchTree(Vector3 initial, Vector3 goal, CellMatrix domain) {
         this.initial = initial;
         this.goal = goal;
         this.domain = domain;
         SearchNode root = new SearchNode(initial, null, 0, 0, 0, new Move(domain.GetCell((int)initial.x,(int)initial.y)));
-        Debug.Log(root);
-        open_nodes = new List<SearchNode> { root };
+        open_nodes = new LinkedList<SearchNode>();
+        open_nodes.AddFirst(root);
         solution = null;
         this.nodes_explored = 0;
+        this.positions_done = new Dictionary<Vector3, int>();
+        positions_done.Add(initial, 0);
+        new_node_list = new List<SearchNode>();
     }
 
     public IEnumerator search() {
+        Debug.Log("start search");
         while (open_nodes.Count > 0 && solution is null) {
-            SearchNode node = open_nodes[0];
-            open_nodes.RemoveAt(0);
+            SearchNode node = open_nodes.First.Value;
+            open_nodes.RemoveFirst();
             nodes_explored++;
-            Debug.Log($"STATS {nodes_explored},{open_nodes.Count},{node.depth},{node.heuristic}");
+            //Debug.Log($"STATS {nodes_explored},{open_nodes.Count},{node.depth},{node.heuristic}");
             if (node.playerPosition == goal) {
                 solution = node;
                 yield return null;
             }
-            List<SearchNode> new_nodes = DefineNewNodes(node);
-            open_nodes.AddRange(new_nodes);
-            open_nodes.Sort((n1,n2) => (n1.heuristic+n1.cost).CompareTo(n2.heuristic+n2.cost));
+            DefineNewNodes(node);
+            if (new_node_list.Count > 0) {
+                new_node_list.Sort((n1, n2) => n1.heuristic.CompareTo(n2.heuristic));
+                //open_nodes.AddRange(new_node_list);
+                SortNodes();
+            }
             yield return null;
         }
-        Debug.Log("end");
+
+        Debug.Log("end search");
         yield return null;
+    }
+
+    public void SortNodes()
+    {
+        /*
+        SearchNode[] searchNodes = open_nodes.ToArray();
+        open_nodes.Clear();
+        Array.Sort(searchNodes, (n1, n2) => n1.heuristic.CompareTo(n2.heuristic));
+        */
+        //open_nodes.Sort((n1, n2) => n1.heuristic.CompareTo(n2.heuristic));
+        /*
+        open_nodes.Sort((n1, n2) => { 
+            return (int)(n1.heuristic - n2.heuristic); 
+        });
+        */
+        var linked_node = open_nodes.First;
+        int i = 0;
+        while (!(linked_node is null) && i < new_node_list.Count) {
+            if (new_node_list[i].heuristic - linked_node.Value.heuristic <= 0) {
+                open_nodes.AddBefore(linked_node, new_node_list[i]);
+                i++;
+            }
+            linked_node = linked_node.Next;
+        }
+
+        // Add remaining nodes 
+        for (int j = i; j < new_node_list.Count; j++) {
+            open_nodes.AddLast(new_node_list[j]);
+        }
     }
 
     public List<Command> GetCommandSolution() {
@@ -54,25 +95,41 @@ public class SearchTree
         return ret;
     }
 
-    public List<SearchNode> DefineNewNodes(SearchNode node) {
-        List<SearchNode> nodeList = new List<SearchNode>();
+    public void DefineNewNodes(SearchNode node) {
+        new_node_list.Clear();
         Cell original_cell = domain.GetCell((int)node.playerPosition.x, (int)node.playerPosition.y);
-        //Debug.Log($"BANANA {original_cell}");
         Cell cell1 = domain.GetCell((int)node.playerPosition.x + 1, (int)node.playerPosition.y);
         Cell cell2 = domain.GetCell((int)node.playerPosition.x - 1, (int)node.playerPosition.y);
         Cell cell3 = domain.GetCell((int)node.playerPosition.x, (int)node.playerPosition.y + 1);
         Cell cell4 = domain.GetCell((int)node.playerPosition.x, (int)node.playerPosition.y - 1);
-        List<Cell> cellList = new List<Cell>() {cell1, cell2, cell3, cell4};
-        foreach (Cell cell in cellList) {
-            //if (node.depth + 1 < 40 && CanWalkToCell(cell, original_cell)) {
-            if (node.depth+1 < max_depth && CanWalkToCell(original_cell, cell) && !(node.PositionInParent(cell.getVisualHeightPosition()))) {
-                //Debug.Log($"AQUI {cell}");
-                SearchNode new_node = new SearchNode(cell.getVisualHeightPosition(), node, node.depth + 1, node.cost + 1, Heuristic(cell), new Move(cell));
-                //TODO: check if it is repeated
-                nodeList.Add(new_node);
-            }
+        CheckAndAddNode(node, original_cell, cell1);
+        CheckAndAddNode(node, original_cell, cell2);
+        CheckAndAddNode(node, original_cell, cell3);
+        CheckAndAddNode(node, original_cell, cell4);
+    }
+
+    public void CheckAndAddNode(SearchNode node, Cell original_cell, Cell cell) {
+        if (node.depth + 1 < max_depth && !(cell is null) &&
+            CheckPosition(node, cell.getVisualHeightPosition()) &&
+            !(node.PositionInParent(cell.getVisualHeightPosition())) &&
+            CanWalkToCell(original_cell, cell))
+        {
+            new_node_list.Add(new SearchNode(cell.getVisualHeightPosition(), node, node.depth + 1, node.cost + 1, Heuristic(cell), new Move(cell)));
         }
-        return nodeList;
+
+    }
+
+    public bool CheckPosition(SearchNode node, Vector3 position) {
+        int old_depth = -1;
+        if (!positions_done.TryGetValue(position, out old_depth)) {
+            positions_done.Add(position, node.depth + 1);
+            return true;
+        }
+        if (old_depth >= node.depth+1) {
+            positions_done[position] = node.depth + 1;
+            return true;
+        }
+        return false;
     }
 
     public static bool CanWalkToCell(Cell src, Cell dest)
@@ -94,55 +151,48 @@ public class SearchTree
                 }
                 else if (dest is RampCell)
                 {
-                    Debug.Log($"ESTOU AQUI {src},{dest}");
                     Vector3 srcHeightPos = src.getVisualHeightPosition();
                     foreach (Vector3 pos in dest.getPossiblePositions())
                     {
                         if (pos == srcHeightPos)
                         {
-                            Debug.Log($"ESTOU AQUI {true}");
                             return true;
                         }
                     }
-                    Debug.Log($"ESTOU AQUI {false}");
                     return false;
                 }
             }
             else if (src is RampCell)
             {
-                Debug.Log($"ESTOU AQUI2 {src},{dest}");
                 Vector3 destHeightPos = dest.getVisualHeightPosition();
                 foreach (Vector3 pos in src.getPossiblePositions())
                 {
                     if (pos == destHeightPos)
                     {
-                        Debug.Log($"ESTOU AQUI2 {true}");
                         return true;
                     }
                 }
-                Debug.Log($"ESTOU AQUI2 {false}");
                 return false;
             }
         }
         return false;
     }
 
-    public float Heuristic(Cell cell) {
-        Vector3 position = cell.getVisualHeightPosition();
-        return Vector3.Distance(position, this.goal);
+    public double Heuristic(Cell cell) {
+        return Vector3.Distance(cell.getVisualHeightPosition(), this.goal);
     }
 
-    private void test() {
-        Cell cell1 = new GroundCell(0, 0, 0);
-        Cell cell2 = new GroundCell(0, 1, 0);
-        Cell cell3 = new GroundCell(1, 1, 0);
-        Cell cell4 = new GroundCell(1, 3, 1);
-        Cell cell5 = new RampCell(1, 2, 1, "Up");
-        Debug.Log(CanWalkToCell(cell1, cell2)); // True
-        Debug.Log(CanWalkToCell(cell1, cell3)); // False
-        Debug.Log(CanWalkToCell(cell1, cell4)); // False
-        Debug.Log(CanWalkToCell(cell1, cell5)); // True
-        Debug.Log(CanWalkToCell(cell5, cell4)); // True
-    }
+    /* Test
+    Cell cell1 = new GroundCell(0, 0, 0);
+    Cell cell2 = new GroundCell(0, 1, 0);
+    Cell cell3 = new GroundCell(1, 1, 0);
+    Cell cell4 = new GroundCell(1, 3, 1);
+    Cell cell5 = new RampCell(1, 2, 1, "Up");
+    Debug.Log(CanWalkToCell(cell1, cell2)); // True
+    Debug.Log(CanWalkToCell(cell1, cell3)); // False
+    Debug.Log(CanWalkToCell(cell1, cell4)); // False
+    Debug.Log(CanWalkToCell(cell1, cell5)); // True
+    Debug.Log(CanWalkToCell(cell5, cell4)); // True
+    */
 
 }
