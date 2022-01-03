@@ -31,9 +31,12 @@ public class CellFactory
             case "BrokenGround":
                 return new BrokenGroundCell(x, y, height);
 
+            case "PlaceRamp":
+                return new PlaceRampCell(x, y, height);
+
             // not walkable
             default:
-                return new Cell(x, y, height, false);
+                return null;
         }
     }
 }

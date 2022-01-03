@@ -19,16 +19,22 @@ public class RampCell : TeleporterCell
                 ret.Add(new Vector3(visual_x - 1, visual_y, height - 1));
                 ret.Add(new Vector3(visual_x + 1, visual_y, height));
                 break;
+            case "Down":
+                ret.Add(new Vector3(visual_x - 1, visual_y, height));
+                ret.Add(new Vector3(visual_x + 1, visual_y, height - 1));
+                break;
+            //TODO: test these 2
+            case "Right":
+                ret.Add(new Vector3(visual_x, visual_y - 1, height - 1));
+                ret.Add(new Vector3(visual_x, visual_y + 1, height));
+                break;
+            case "Left":
+                ret.Add(new Vector3(visual_x, visual_y - 1, height));
+                ret.Add(new Vector3(visual_x, visual_y + 1, height - 1));
+                break;
             default:
                 break;
-        
-        
         }
-
-
-
-
-
         return ret;
     }
 

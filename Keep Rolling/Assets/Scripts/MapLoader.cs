@@ -86,7 +86,8 @@ public class MapLoader
                         {
                             tilemaps[height].SetTile(new Vector3Int( j  , image.width - i +1, 0), newTile);
                             Cell cell = CellFactory.CreateCellFromCellName(j + height, image.width - i + 1 + height, height, tile.cellType);
-                            cellList.Add(cell);
+                            if (!(cell is null))
+                                cellList.Add(cell);
                             /*for (int k =0; k < height; k++) {
                                 tilemaps[k].SetTile(new Vector3Int(j + k, image.width - i +k , 0), defaultGroundTile);
                             }*/
