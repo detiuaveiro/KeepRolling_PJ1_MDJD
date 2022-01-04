@@ -2021,6 +2021,7 @@ MonoBehaviour:
   Play: {fileID: 1965407558}
   Settings: {fileID: 831947486}
   Leaderboard: {fileID: 1897169020}
+  resolutionsDropDown: {fileID: 638489123}
 --- !u!1 &429294099
 GameObject:
   m_ObjectHideFlags: 0

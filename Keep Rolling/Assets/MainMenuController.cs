@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour
 {
@@ -12,11 +13,36 @@ public class MainMenuController : MonoBehaviour
     private GameObject currentDisplaying;
     private List<Command> NavigateLog;
 
+    private Resolution[] resolutions;
+    public Dropdown resolutionsDropDown;
+
     // Start is called before the first frame update
     void Start()
     {
         NavigateLog = new List<Command>();
         NavigateHome();
+
+        resolutions = Screen.resolutions;
+        resolutionsDropDown.ClearOptions();
+
+        int currentResolution = 0;
+
+        List<string> options = new List<string>();
+
+        for (int i = 0; i < resolutions.Length; i++)
+        {
+            string option = resolutions[i].width + "x" + resolutions[i].height;
+            options.Add(option);
+
+            if (resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
+            {
+                currentResolution = i;
+            }
+        }
+
+        resolutionsDropDown.AddOptions(options);
+        resolutionsDropDown.value = currentResolution;
+        resolutionsDropDown.RefreshShownValue();
     }
 
     public void NavigateHome()
@@ -85,5 +111,11 @@ public class MainMenuController : MonoBehaviour
         Command lastCommand = NavigateLog[NavigateLog.Count - 1];
         NavigateLog.Remove(lastCommand);
         lastCommand.Undo();
+    }
+
+    public void SetResolution(int resolutionIndex)
+    {
+        Resolution res = resolutions[resolutionIndex];
+        Screen.SetResolution(res.width, res.height, Screen.fullScreen);
     }
 }
