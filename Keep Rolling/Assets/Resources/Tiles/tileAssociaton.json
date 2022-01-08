@@ -10,6 +10,70 @@
         },
         {
             "color":{
+                "G": 10,
+                "B": 2
+            },
+            "tileName": "linhaDescontinuaAsfaltoDir",
+            "cellType":  "Ground"
+        },
+        {
+            "color":{
+                "G": 10,
+                "B": 3
+            },
+            "tileName": "linhaDescontinuaAsfaltoEsq",
+            "cellType":  "Ground"
+        },
+        {
+            "color":{
+                "G": 10,
+                "B": 4
+            },
+            "tileName": "passadeiraAsfaltoDir",
+            "cellType":  "Ground"
+        },
+        {
+            "color":{
+                "G": 10,
+                "B": 5
+            },
+            "tileName": "passadeiraAsfaltoEsq",
+            "cellType":  "Ground"
+        },
+        {
+            "color":{
+                "G": 10,
+                "B": 6
+            },
+            "tileName": "linhaLateralAsfaltoDirDir",
+            "cellType":  "Ground"
+        },
+        {
+            "color":{
+                "G": 10,
+                "B": 7
+            },
+            "tileName": "linhaLateralAsfaltoDirEsq",
+            "cellType":  "Ground"
+        },
+        {
+            "color":{
+                "G": 10,
+                "B": 8
+            },
+            "tileName": "linhaLateralAsfaltoEsqDir",
+            "cellType":  "Ground"
+        },
+        {
+            "color":{
+                "G": 10,
+                "B": 9
+            },
+            "tileName": "linhaLateralAsfaltoEsqEsq",
+            "cellType":  "Ground"
+        },
+        {
+            "color":{
                 "G": 50,
                 "B": 20
             },

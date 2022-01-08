@@ -8,4 +8,5 @@ public class Piece : MonoBehaviour
     public PieceType type;
     public GameObject prefab;
     public IsometricRuleTile tile;
+    public Sprite[] sprites;
 }
