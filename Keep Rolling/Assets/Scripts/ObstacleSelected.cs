@@ -51,7 +51,7 @@ public class ObstacleSelected : MonoBehaviour
             }
             if (Input.GetButton("Fire1"))
             {
-                if (MapManager.instance.PlaceTile(lastSnappedCell, sprites[currentSprite], offset,piece)) {
+                if (MapManager.instance.PlaceTile(lastSnappedCell, sprites[currentSprite], offset,piece,(Direction)currentSprite)) {
                     Debug.Log("placing");
                     Destroy(this.gameObject);
                 }

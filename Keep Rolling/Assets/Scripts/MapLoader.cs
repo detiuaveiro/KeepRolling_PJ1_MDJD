@@ -39,7 +39,7 @@ public class MapLoader
 
     private static Tile getTileFromColor(Color32 color, Tiles tilesData)
     {
-        TileColor newColor = new()
+        TileColor newColor = new TileColor()
         {
             R = color.r,
             G = color.g,

@@ -13,7 +13,7 @@ public class SearchTree
     public LinkedList<SearchNode> open_nodes;
     public SearchNode solution;
     public int nodes_explored;
-    public int max_depth = 40;
+    public int max_depth = 70;
     public Dictionary<Vector3, int> positions_done;
     private List<SearchNode> new_node_list;
 
@@ -128,9 +128,9 @@ public class SearchTree
 
     public void CheckAndAddNode(SearchNode node, Cell original_cell, Cell cell) {
         if (node.depth + 1 < max_depth && !(cell is null) &&
-            CheckPosition(node, cell.getVisualHeightPosition()) &&
             !(node.PositionInParent(cell.getVisualHeightPosition())) &&
-            CanWalkToCell(original_cell, cell))
+            CanWalkToCell(original_cell, cell) &&
+            CheckPosition(node, cell.getVisualHeightPosition()))
         {
             new_node_list.Add(new SearchNode(cell.getVisualHeightPosition(), node, node.depth + 1, node.cost + 1, Heuristic(cell), new Move(cell)));
         }
@@ -169,6 +169,7 @@ public class SearchTree
                 }
                 else if (dest is RampCell)
                 {
+                    UnityEngine.Debug.Log($"AQUI RAMPA????? {src} {dest}");
                     Vector3 srcHeightPos = src.getVisualHeightPosition();
                     foreach (Vector3 pos in dest.getPossiblePositions())
                     {

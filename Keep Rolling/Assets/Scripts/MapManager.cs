@@ -40,7 +40,7 @@ public class MapManager : MonoBehaviour
     private IEnumerator SolveLevel() {
         Debug.Log(startPosition);
         Debug.Log(endPosition);
-        startPosition = new Vector3Int(2, 6, 0);
+        //startPosition = new Vector3Int(2, 6, 0);
         //endPosition = new Vector3Int(2, 6, 0);
         ChairMovementController.instance.transform.position = tilemaps[startPosition.z].CellToWorld(startPosition);
         /*
@@ -173,7 +173,7 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    public bool PlaceTile(Cell cell, Sprite sprite, int height, Piece piece) {
+    public bool PlaceTile(Cell cell, Sprite sprite, int height, Piece piece, Direction direction) {
         
         if (!CanPlaceTile(cell, piece, height))
             return false;
@@ -185,7 +185,7 @@ public class MapManager : MonoBehaviour
                 IsometricRuleTile newTile = new IsometricRuleTile();
                 newTile.m_DefaultSprite = sprite;
                 tilemaps[cell.getHeight() + height + 1].SetTile(new Vector3Int(cell.getX()+height,cell.getY()+height,0), newTile);
-                var new_cell = new RampCell(cell.getX()+1+height, cell.getY()+1+height, cell.getHeight()+height + 1,"Up");
+                var new_cell = new RampCell(cell.getX()+1+height, cell.getY()+1+height, cell.getHeight()+height + 1,direction);
                 cell_matrix.AddCell(new_cell);
                 break;
             default:
