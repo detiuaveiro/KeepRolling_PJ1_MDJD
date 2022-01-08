@@ -1,8 +1,8 @@
 using System.Collections;
+using System.Diagnostics;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
 
 public class SearchTree 
 {
@@ -32,15 +32,27 @@ public class SearchTree
     }
 
     public IEnumerator search() {
-        Debug.Log("start search");
+        UnityEngine.Debug.Log("start search");
+        Stopwatch stopwatch = new Stopwatch();
+        float frame_time = 0f;
+        bool new_frame = true;
+        int frame_count = 0;
         while (open_nodes.Count > 0 && solution is null) {
+            if (new_frame) {
+                stopwatch.Restart();
+                frame_count++;
+                frame_time = Time.deltaTime;
+                new_frame = false;
+            }
             SearchNode node = open_nodes.First.Value;
             open_nodes.RemoveFirst();
             nodes_explored++;
             //Debug.Log($"STATS {nodes_explored},{open_nodes.Count},{node.depth},{node.heuristic}");
             if (node.playerPosition == goal) {
+                UnityEngine.Debug.Log(frame_count);
                 solution = node;
                 yield return null;
+                break;
             }
             DefineNewNodes(node);
             if (new_node_list.Count > 0) {
@@ -48,10 +60,16 @@ public class SearchTree
                 //open_nodes.AddRange(new_node_list);
                 SortNodes();
             }
-            yield return null;
+            //UnityEngine.Debug.Log(stopwatch.ElapsedMilliseconds);
+            if (stopwatch.ElapsedMilliseconds > (frame_time/2)*1000) {
+                UnityEngine.Debug.Log(frame_time);
+                UnityEngine.Debug.Log(stopwatch.ElapsedMilliseconds);
+                new_frame = true;
+                yield return null;
+            }
         }
 
-        Debug.Log("end search");
+        UnityEngine.Debug.Log("end search");
         yield return null;
     }
 
