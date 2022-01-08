@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5e6f3fbb560bd6041a202ea918fa4f23, type: 3}
-  m_Name: asfaltoTile
+  m_Name: linhaDescontinuaAsfaltoDir
   m_EditorClassIdentifier: 
-  m_DefaultSprite: {fileID: 21300000, guid: 50e575f83f080bd48ae822185f271932, type: 3}
+  m_DefaultSprite: {fileID: 21300000, guid: 19a76874642697d4897fd3cf9d301b52, type: 3}
   m_DefaultGameObject: {fileID: 0}
   m_DefaultColliderType: 1
   m_TilingRules: []
