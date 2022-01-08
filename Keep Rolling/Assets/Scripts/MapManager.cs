@@ -173,7 +173,7 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    public bool PlaceTile(Cell cell, Piece piece, int height) {
+    public bool PlaceTile(Cell cell, Sprite sprite, int height, Piece piece) {
         
         if (!CanPlaceTile(cell, piece, height))
             return false;
@@ -182,7 +182,9 @@ public class MapManager : MonoBehaviour
         switch (piece.type)
         {
             case PieceType.Ramp:
-                tilemaps[cell.getHeight() + height + 1].SetTile(new Vector3Int(cell.getX()+height,cell.getY()+height,0), piece.tile);
+                IsometricRuleTile newTile = new IsometricRuleTile();
+                newTile.m_DefaultSprite = sprite;
+                tilemaps[cell.getHeight() + height + 1].SetTile(new Vector3Int(cell.getX()+height,cell.getY()+height,0), newTile);
                 var new_cell = new RampCell(cell.getX()+1+height, cell.getY()+1+height, cell.getHeight()+height + 1,"Up");
                 cell_matrix.AddCell(new_cell);
                 break;

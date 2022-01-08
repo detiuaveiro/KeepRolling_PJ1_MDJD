@@ -7,42 +7,33 @@ public class ObstacleSelected : MonoBehaviour
 {
     public Tile tile;
     public Grid grid;
-    private List<Cell> cells;
     private Cell lastSnappedCell;
     public Piece piece;
+    private SpriteRenderer spr;
+    private int currentSprite = 0;
+    private Sprite[] sprites;
     private void Start()
     {
         grid = GameObject.Find("Grid").GetComponent<Grid>();
-        cells = MapManager.instance.cell_matrix.GetAllCells();
+        spr = this.gameObject.GetComponent<SpriteRenderer>();
+        sprites = piece.sprites;
     }
+
+    private void ChangeSprite()
+    {
+        currentSprite = (currentSprite + 1) % sprites.Length;
+        spr.sprite = sprites[currentSprite];
+    }
+
     void Update()
     {
         transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
 
         lastSnappedCell = null;
-        int offset = 0;
         var result = MapManager.instance.GetLastSnappedCell(transform.position, piece);
         lastSnappedCell = result.Item1;
-        offset = result.Item2;
-        Debug.Log(result);
-        /*
-        foreach (var cell in cells)
-        {
-            Vector3Int cellPos = new Vector3Int((int)cell.getPosition().x,(int)cell.getPosition().y,0);
-            Vector3 place = MapManager.instance.tilemaps[cell.getHeight()].GetCellCenterWorld(cellPos);
-            if (Vector3.Distance(place, transform.position) < 0.25)
-            {
-                transform.position = place;
-                Vector3 cellPlace = MapManager.instance.tilemaps[cell.getHeight()].CellToWorld(cellPos);
-                Debug.DrawLine(cellPlace, cellPlace + new Vector3(-1, 0, 0));
-                Debug.DrawLine(cellPlace, cellPlace + new Vector3(0, 1, 0));
-                lastSnappedCell = cell;
-                Debug.Log(cell);
-            }
-        }
-        */
-        
+        int offset = result.Item2;
 
         if (lastSnappedCell != null)
         {
@@ -60,7 +51,7 @@ public class ObstacleSelected : MonoBehaviour
             }
             if (Input.GetButton("Fire1"))
             {
-                if (MapManager.instance.PlaceTile(lastSnappedCell, piece, offset)) {
+                if (MapManager.instance.PlaceTile(lastSnappedCell, sprites[currentSprite], offset,piece)) {
                     Debug.Log("placing");
                     Destroy(this.gameObject);
                 }
@@ -69,6 +60,10 @@ public class ObstacleSelected : MonoBehaviour
         {
             this.gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.75f);
         }
-        cells = MapManager.instance.cell_matrix.GetAllCells();
+
+        if (Input.GetButtonDown("Rotate Objects"))
+        {
+            ChangeSprite();
+        }
     }
 }
