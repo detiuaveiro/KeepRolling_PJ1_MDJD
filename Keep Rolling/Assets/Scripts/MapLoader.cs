@@ -103,7 +103,6 @@ public class MapLoader
                             {
                                 if (defaulTtilesData.associations[k].tile.Equals(tile.tileName))
                                 {
-                                    Debug.Log("has associaton");
                                     IsometricRuleTile defaultTile = Resources.Load<IsometricRuleTile>("Tiles/" + defaulTtilesData.associations[k].defaultTile);
                                     tilemaps[height-1].SetTile(new Vector3Int(j, image.width - i + 1, 0), defaultTile);
                                     break;
