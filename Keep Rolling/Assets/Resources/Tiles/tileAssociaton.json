@@ -90,6 +90,14 @@
         },
         {
             "color":{
+                "G": 13,
+                "B": 1
+            },
+            "tileName": "candeeiro",
+            "cellType":  "Ground"
+        },
+        {
+            "color":{
                 "G": 50,
                 "B": 20
             },

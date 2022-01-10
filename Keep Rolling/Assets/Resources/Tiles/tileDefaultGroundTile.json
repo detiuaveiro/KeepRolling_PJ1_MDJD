@@ -1,0 +1,8 @@
+{
+    "associations":[
+        {
+            "tile" : "candeeiro",
+            "defaultTile" : "relva" 
+        }
+    ]
+}

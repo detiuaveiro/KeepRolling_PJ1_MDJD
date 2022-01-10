@@ -6,7 +6,17 @@ using UnityEngine.Tilemaps;
 
 public class MapLoader 
 {
-    private static string defaultGroundTile = "asfaltoTile";
+    [System.Serializable]
+    private class DefaultTileAssociation
+    {
+        public string tile;
+        public string defaultTile;
+    }
+    [System.Serializable]
+    private class DefaultTileAssociations
+    {
+        public DefaultTileAssociation[] associations;
+    }
 
     [System.Serializable]
     private class TileColor
@@ -66,7 +76,8 @@ public class MapLoader
         Tiles tilesData = JsonUtility.FromJson<Tiles>(jsonFile.text);
         List<Cell> cellList = new List<Cell>();
 
-        //IsometricRuleTile defaultGroundTile = Resources.Load<IsometricRuleTile>("Tiles/" + MapLoader.defaultGroundTile);
+        TextAsset jsonFileDefaultAssociation = Resources.Load<TextAsset>("Tiles/tileDefaultGroundTile");
+        DefaultTileAssociations defaulTtilesData = JsonUtility.FromJson<DefaultTileAssociations>(jsonFileDefaultAssociation.text);
 
         Texture2D image = (Texture2D)Resources.Load("Levels/Level1");
         for (int i = 0; i < image.width; i++)
@@ -88,6 +99,16 @@ public class MapLoader
                             Cell cell = CellFactory.CreateCellFromCellName(j + height, image.width - i + 1 + height, height, tile.cellType);
                             if (!(cell is null))
                                 cellList.Add(cell);
+                            for (int k = 0; k < defaulTtilesData.associations.Length; k++)
+                            {
+                                if (defaulTtilesData.associations[k].tile.Equals(tile.tileName))
+                                {
+                                    Debug.Log("has associaton");
+                                    IsometricRuleTile defaultTile = Resources.Load<IsometricRuleTile>("Tiles/" + defaulTtilesData.associations[k].defaultTile);
+                                    tilemaps[height-1].SetTile(new Vector3Int(j, image.width - i + 1, 0), defaultTile);
+                                    break;
+                                }
+                            }
                             /*for (int k =0; k < height; k++) {
                                 tilemaps[k].SetTile(new Vector3Int(j + k, image.width - i +k , 0), defaultGroundTile);
                             }*/
