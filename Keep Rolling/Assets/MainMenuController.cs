@@ -98,7 +98,7 @@ public class MainMenuController : MonoBehaviour
 
     public void LoadLevel(int level)
     {
-        Debug.Log("Will load level: " + level);
+        GameManager.instance.StartLevel(level);
     }
 
     public void LeaveGame()

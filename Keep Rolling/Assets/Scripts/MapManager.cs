@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using System;
+using UnityEngine.Events;
 
 public class MapManager : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class MapManager : MonoBehaviour
     public Vector3Int startPosition;
     public Vector3Int endPosition;
     public bool solve = false;
+
     void Start()
     {
         if (instance != null)
@@ -22,11 +24,13 @@ public class MapManager : MonoBehaviour
         }
 
         instance = this;
-        List<Cell> cellList = MapLoader.loadLevel(tilemaps);
+        LoadScene();
+    }
+
+    private void LoadScene()
+    {
+        List<Cell> cellList = MapLoader.loadLevel(GameManager.instance.GetCurrentLevel(),tilemaps);
         CreateCellGridFromList(cellList);
-
-
-
     }
 
     void Update()

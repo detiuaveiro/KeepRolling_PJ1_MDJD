@@ -70,7 +70,7 @@ public class MapLoader
      * 
      *
      */
-    public static List<Cell> loadLevel(List<Tilemap> tilemaps)
+    public static List<Cell> loadLevel(int level,List<Tilemap> tilemaps)
     {
         TextAsset jsonFile = Resources.Load<TextAsset>("Tiles/tileAssociaton");
         Tiles tilesData = JsonUtility.FromJson<Tiles>(jsonFile.text);
@@ -78,8 +78,8 @@ public class MapLoader
 
         TextAsset jsonFileDefaultAssociation = Resources.Load<TextAsset>("Tiles/tileDefaultGroundTile");
         DefaultTileAssociations defaulTtilesData = JsonUtility.FromJson<DefaultTileAssociations>(jsonFileDefaultAssociation.text);
-
-        Texture2D image = (Texture2D)Resources.Load("Levels/Level1");
+        Debug.Log("loading level " + level);
+        Texture2D image = (Texture2D)Resources.Load("Levels/Level"+ level);
         for (int i = 0; i < image.width; i++)
         {
             for (int j = 0; j < image.height; j++)
