@@ -1,0 +1,8 @@
+{
+    "objects":[
+        {
+            "name" : "Ramp",
+            "cost" : 500
+        }
+    ]
+}

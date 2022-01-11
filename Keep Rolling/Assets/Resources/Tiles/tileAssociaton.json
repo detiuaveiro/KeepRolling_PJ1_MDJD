@@ -74,10 +74,146 @@
         },
         {
             "color":{
+                "G": 11,
+                "B": 1
+            },
+            "tileName": "relva",
+            "cellType":  "Ground"
+        },
+        {
+            "color":{
+                "G": 11,
+                "B": 2
+            },
+            "tileName": "gravilha",
+            "cellType":  "Ground"
+        },
+        {
+            "color":{
+                "G": 12,
+                "B": 1
+            },
+            "tileName": "house03",
+            "cellType":  "Ground"
+        },
+        {
+            "color":{
+                "G": 12,
+                "B": 2
+            },
+            "tileName": "casaAmigo",
+            "cellType":  "Ground"
+        },
+        {
+            "color":{
+                "G": 12,
+                "B": 3
+            },
+            "tileName": "house01",
+            "cellType":  "Ground"
+        },
+        {
+            "color":{
+                "G": 13,
+                "B": 1
+            },
+            "tileName": "candeeiro",
+            "cellType":  "Ground"
+        },
+        {
+            "color":{
+                "G": 13,
+                "B": 2
+            },
+            "tileName": "stopEsq",
+            "cellType":  "Ground"
+        },
+        {
+            "color":{
+                "G": 13,
+                "B": 3
+            },
+            "tileName": "arbustoL",
+            "cellType":  "Ground"
+        },
+        {
+            "color":{
+                "G": 13,
+                "B": 4
+            },
+            "tileName": "arbusto",
+            "cellType":  "Ground"
+        },
+        {
+            "color":{
+                "G": 13,
+                "B": 5
+            },
+            "tileName": "arbustoLDir"
+        },
+        {
+            "color":{
+                "G": 13,
+                "B": 6
+            },
+            "tileName": "tree1"
+        },
+        {
+            "color":{
+                "G": 13,
+                "B": 7
+            },
+            "tileName": "tree5"
+        },
+        {
+            "color":{
+                "G": 13,
+                "B": 8
+            },
+            "tileName": "bancoJardimDir"
+        },
+        {
+            "color":{
+                "G": 13,
+                "B": 9
+            },
+            "tileName": "bancoJardimEsq"
+        },
+        {
+            "color":{
+                "G": 13,
+                "B": 10
+            },
+            "tileName": "caixaAreia"
+        },
+        {
+            "color":{
+                "G": 13,
+                "B": 11
+            },
+            "tileName": "tree6"
+        },
+        {
+            "color":{
+                "G": 13,
+                "B": 12
+            },
+            "tileName": "sobeDesce"
+        },
+        {
+            "color":{
                 "G": 50,
                 "B": 20
             },
             "tileName": "calcadaDir",
+            "cellType": "Ground" 
+        },
+        {
+            "color":{
+                "G": 50,
+                "B": 21
+            },
+            "tileName": "calcadaBuracoDir",
             "cellType": "Ground" 
         }
     ]

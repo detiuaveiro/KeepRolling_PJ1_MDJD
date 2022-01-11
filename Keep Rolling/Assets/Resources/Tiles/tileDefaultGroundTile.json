@@ -1,0 +1,48 @@
+{
+    "associations":[
+        {
+            "tile" : "candeeiro",
+            "defaultTile" : "relva" 
+        },
+        {
+            "tile" : "stopEsq",
+            "defaultTile" : "asfaltoTile" 
+        },
+        {
+            "tile" : "arbustoL",
+            "defaultTile" : "relva" 
+        },
+        {
+            "tile" : "arbusto",
+            "defaultTile" : "relva" 
+        },
+        {
+            "tile" : "arbustoLDir",
+            "defaultTile" : "relva" 
+        },
+        {
+            "tile" : "tree1",
+            "defaultTile" : "relva" 
+        },
+        {
+            "tile" : "tree5",
+            "defaultTile" : "relva" 
+        },
+        {
+            "tile" : "bancoJardimDir",
+            "defaultTile" : "relva" 
+        },
+        {
+            "tile" : "bancoJardimEsq",
+            "defaultTile" : "relva" 
+        },
+        {
+            "tile" : "tree6",
+            "defaultTile" : "relva" 
+        },
+        {
+            "tile" : "sobeDesce",
+            "defaultTile" : "relva" 
+        }
+    ]
+}
