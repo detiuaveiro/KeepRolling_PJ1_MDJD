@@ -179,7 +179,7 @@ public class MapManager : MonoBehaviour
 
     public bool PlaceTile(Cell cell, Sprite sprite, int height, Piece piece) {
         
-        if (!CanPlaceTile(cell, piece, height))
+        if (!CanPlaceTile(cell, piece, height) || !LevelManager.instance.BuyPiece(piece))
             return false;
 
         //TODO: keep adding PieceTypes
