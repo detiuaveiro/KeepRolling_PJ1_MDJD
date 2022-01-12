@@ -6,7 +6,7 @@
                 "B": 1
             },
             "tileName": "asfaltoTile",
-            "cellType":  "Ground"
+            "cellType":  "None"
         },
         {
             "color":{
@@ -14,7 +14,7 @@
                 "B": 2
             },
             "tileName": "linhaDescontinuaAsfaltoDir",
-            "cellType":  "Ground"
+            "cellType":  "None"
         },
         {
             "color":{
@@ -22,7 +22,7 @@
                 "B": 3
             },
             "tileName": "linhaDescontinuaAsfaltoEsq",
-            "cellType":  "Ground"
+            "cellType":  "None"
         },
         {
             "color":{
@@ -46,7 +46,7 @@
                 "B": 6
             },
             "tileName": "linhaLateralAsfaltoDirDir",
-            "cellType":  "Ground"
+            "cellType":  "None"
         },
         {
             "color":{
@@ -54,7 +54,7 @@
                 "B": 7
             },
             "tileName": "linhaLateralAsfaltoDirEsq",
-            "cellType":  "Ground"
+            "cellType":  "None"
         },
         {
             "color":{
@@ -62,7 +62,7 @@
                 "B": 8
             },
             "tileName": "linhaLateralAsfaltoEsqDir",
-            "cellType":  "Ground"
+            "cellType":  "None"
         },
         {
             "color":{
@@ -70,7 +70,7 @@
                 "B": 9
             },
             "tileName": "linhaLateralAsfaltoEsqEsq",
-            "cellType":  "Ground"
+            "cellType":  "None"
         },
         {
             "color":{
@@ -78,7 +78,7 @@
                 "B": 1
             },
             "tileName": "relva",
-            "cellType":  "Ground"
+            "cellType":  "None"
         },
         {
             "color":{
@@ -86,7 +86,7 @@
                 "B": 2
             },
             "tileName": "gravilha",
-            "cellType":  "Ground"
+            "cellType":  "None"
         },
         {
             "color":{
@@ -94,7 +94,7 @@
                 "B": 1
             },
             "tileName": "house03",
-            "cellType":  "Ground"
+            "cellType":  "None"
         },
         {
             "color":{
@@ -102,7 +102,7 @@
                 "B": 2
             },
             "tileName": "casaAmigo",
-            "cellType":  "Ground"
+            "cellType":  "None"
         },
         {
             "color":{
@@ -110,7 +110,7 @@
                 "B": 3
             },
             "tileName": "house01",
-            "cellType":  "Ground"
+            "cellType":  "None"
         },
         {
             "color":{
@@ -118,7 +118,7 @@
                 "B": 1
             },
             "tileName": "candeeiro",
-            "cellType":  "Ground"
+            "cellType":  "None"
         },
         {
             "color":{
@@ -126,7 +126,7 @@
                 "B": 2
             },
             "tileName": "stopEsq",
-            "cellType":  "Ground"
+            "cellType":  "None"
         },
         {
             "color":{
@@ -134,7 +134,7 @@
                 "B": 3
             },
             "tileName": "arbustoL",
-            "cellType":  "Ground"
+            "cellType":  "None"
         },
         {
             "color":{
@@ -142,7 +142,7 @@
                 "B": 4
             },
             "tileName": "arbusto",
-            "cellType":  "Ground"
+            "cellType":  "None"
         },
         {
             "color":{
@@ -209,12 +209,12 @@
             "cellType": "Ground" 
         },
         {
-            "color":{
-                "G": 50,
-                "B": 21
+            "color": {
+              "G": 50,
+              "B": 21
             },
             "tileName": "calcadaBuracoDir",
-            "cellType": "Ground" 
+            "cellType": "BrokenGround"
         }
     ]
 }

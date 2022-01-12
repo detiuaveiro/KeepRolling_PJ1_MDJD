@@ -12,7 +12,7 @@ public class BrokenGroundCell : Cell
     override
     public bool CanPlaceOnTop(PieceType pieceType)
     {
-        return pieceType==PieceType.Ramp;
+        return pieceType==PieceType.FixGround;
     }
 
     public override string ToString()

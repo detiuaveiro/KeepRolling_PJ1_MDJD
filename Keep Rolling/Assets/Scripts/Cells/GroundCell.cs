@@ -13,7 +13,7 @@ public class GroundCell : Cell
     
     public override bool CanPlaceOnTop(PieceType pieceType)
     {
-        return true;
+        return false;
     }
 
 

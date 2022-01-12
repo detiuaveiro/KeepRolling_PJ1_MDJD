@@ -5,4 +5,5 @@ using UnityEngine;
 public enum PieceType
 {
     Ramp,
+    FixGround
 }
