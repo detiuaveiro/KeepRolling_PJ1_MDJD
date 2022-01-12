@@ -7,6 +7,8 @@ public class LevelManager : MonoBehaviour
 {
     public static LevelManager instance;
     public Text balanceLabel;
+    SearchTree searchTree;
+    bool solving = false;
     private int currentBalance;
     void Awake()
     {
@@ -15,6 +17,32 @@ public class LevelManager : MonoBehaviour
             Destroy(this.gameObject);
         }
         instance = this;
+    }
+
+    void Update()
+    {
+        if (solving && searchTree.search_complete) {
+            // level complete with success
+            if (searchTree.solution != null)
+            {
+                Debug.Log(searchTree.solution);
+                Debug.Log(searchTree.nodes_explored);
+                Debug.Log(searchTree.open_nodes.Count);
+
+                foreach (Command move in searchTree.GetCommandSolution())
+                {
+                    Debug.Log(((Move)move).destination);
+                    ChairMovementController.instance.commandQueue.Enqueue((Move)move);
+                    // se calhar enviar um último command para saber quando chegou ao fim do nível?
+                }
+            } // level failed 
+            else {
+                solving = false;
+                Debug.Log("Lost");
+                // se calhar enviar comando ?
+                // enable control again
+            }
+        }
     }
 
     [System.Serializable]
@@ -52,5 +80,23 @@ public class LevelManager : MonoBehaviour
     private void UpdateBalance()
     {
         balanceLabel.text = currentBalance + "$";
+    }
+
+    public void StartSimulation() {
+        // disable control
+        StartCoroutine(SolveLevel());
+    }
+
+    private IEnumerator SolveLevel()
+    {
+        Vector3Int startPosition = MapManager.instance.startPosition;
+        Vector3Int endPosition = MapManager.instance.endPosition;
+        Debug.Log(startPosition);
+        Debug.Log(endPosition);
+        ChairMovementController.instance.transform.position = MapManager.instance.tilemaps[startPosition.z].CellToWorld(startPosition);
+        searchTree = new SearchTree(startPosition, endPosition, MapManager.instance.cell_matrix);
+        solving = true;
+        StartCoroutine(searchTree.search());
+        yield return null;
     }
 }
