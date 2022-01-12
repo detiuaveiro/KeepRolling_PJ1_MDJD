@@ -172,6 +172,8 @@ public class MapManager : MonoBehaviour
         switch (piece.type) {
             case PieceType.Ramp:
                 return CanPlaceTileHere(cell.getVisualX(), cell.getVisualY(), cell.getHeight()+1+height);
+            case PieceType.FixGround:
+                return true;
             default:
                 return false;
         }
@@ -183,13 +185,20 @@ public class MapManager : MonoBehaviour
             return false;
 
         //TODO: keep adding PieceTypes
+        IsometricRuleTile newTile = new IsometricRuleTile();
+        Cell new_cell = null;
         switch (piece.type)
         {
             case PieceType.Ramp:
-                IsometricRuleTile newTile = new IsometricRuleTile();
                 newTile.m_DefaultSprite = sprite;
                 tilemaps[cell.getHeight() + height + 1].SetTile(new Vector3Int(cell.getX()+height,cell.getY()+height,0), newTile);
-                var new_cell = new RampCell(cell.getX()+1+height, cell.getY()+1+height, cell.getHeight()+height + 1,direction);
+                new_cell = new RampCell(cell.getX()+1+height, cell.getY()+1+height, cell.getHeight()+height + 1,direction);
+                cell_matrix.AddCell(new_cell);
+                break;
+            case PieceType.FixGround:
+                newTile.m_DefaultSprite = sprite;
+                tilemaps[cell.getHeight() + height].SetTile(new Vector3Int(cell.getX() + height, cell.getY() + height, 0), newTile);
+                new_cell = new GroundCell(cell.getX() + height, cell.getY() + height, cell.getHeight() + height);
                 cell_matrix.AddCell(new_cell);
                 break;
             default:
