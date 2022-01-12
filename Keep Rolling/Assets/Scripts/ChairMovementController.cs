@@ -156,7 +156,7 @@ public class ChairMovementController : MonoBehaviour
 
         if (moving && nextPosition != null)
         {
-            if (Vector3.Distance(this.transform.position,nextPosition) > 0.001f)
+            if (Vector3.Distance(this.transform.position, new Vector2(nextPosition.x, nextPosition.y)) > 0.001f)
             {
                 this.transform.position = Vector2.MoveTowards(transform.position, new Vector2(nextPosition.x, nextPosition.y), 1.0f * Time.deltaTime);
             } else
