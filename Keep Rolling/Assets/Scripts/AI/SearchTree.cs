@@ -16,6 +16,7 @@ public class SearchTree
     public int max_depth = 70;
     public Dictionary<Vector3, int> positions_done;
     private List<SearchNode> new_node_list;
+    public bool search_complete;
 
     public SearchTree(Vector3 initial, Vector3 goal, CellMatrix domain) {
         this.initial = initial;
@@ -26,6 +27,7 @@ public class SearchTree
         open_nodes.AddFirst(root);
         solution = null;
         this.nodes_explored = 0;
+        search_complete = false;
         this.positions_done = new Dictionary<Vector3, int>();
         positions_done.Add(initial, 0);
         new_node_list = new List<SearchNode>();
@@ -51,6 +53,7 @@ public class SearchTree
             if (node.playerPosition == goal) {
                 UnityEngine.Debug.Log(frame_count);
                 solution = node;
+                search_complete = true;
                 yield return null;
                 break;
             }
@@ -70,6 +73,7 @@ public class SearchTree
         }
 
         UnityEngine.Debug.Log("end search");
+        search_complete = true;
         yield return null;
     }
 
@@ -169,7 +173,6 @@ public class SearchTree
                 }
                 else if (dest is RampCell)
                 {
-                    UnityEngine.Debug.Log($"AQUI RAMPA????? {src} {dest}");
                     Vector3 srcHeightPos = src.getVisualHeightPosition();
                     foreach (Vector3 pos in dest.getPossiblePositions())
                     {
