@@ -196,7 +196,7 @@ public class MapManager : MonoBehaviour
                 cell_matrix.AddCell(new_cell);
                 break;
             case PieceType.FixGround:
-                newTile.m_DefaultSprite = sprite;
+                newTile = piece.tile;
                 tilemaps[cell.getHeight() + height].SetTile(new Vector3Int(cell.getVisualX() + height, cell.getVisualY() + height, 0), newTile);
                 new_cell = new GroundCell(cell.getX() + height, cell.getY() + height, cell.getHeight() + height);
                 cell_matrix.AddCell(new_cell);

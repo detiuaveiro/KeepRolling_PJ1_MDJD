@@ -37,9 +37,18 @@ public class ObstacleSelected : MonoBehaviour
 
         if (lastSnappedCell != null)
         {
-            int x = lastSnappedCell.getX() + offset;
-            int y = lastSnappedCell.getY() + offset;
-            Vector3 place = MapManager.instance.tilemaps[0].GetCellCenterWorld(new Vector3Int(x,y,0));
+            int x = lastSnappedCell.getVisualX() + offset;
+            int y = lastSnappedCell.getVisualY() + offset;
+            Vector3 place = Vector3.zero;
+            switch (piece.type) {
+                case PieceType.Ramp:
+                    place = MapManager.instance.tilemaps[lastSnappedCell.getHeight()+1].GetCellCenterWorld(new Vector3Int(x, y, 0));
+                    break;
+                case PieceType.FixGround:
+                    place = MapManager.instance.tilemaps[lastSnappedCell.getHeight()].GetCellCenterWorld(new Vector3Int(x, y, 0));
+                    break;
+            }
+            
             
             transform.position = place;
             if (MapManager.instance.CanPlaceTile(lastSnappedCell, piece,offset))
