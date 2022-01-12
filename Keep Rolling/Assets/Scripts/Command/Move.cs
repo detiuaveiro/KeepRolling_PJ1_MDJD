@@ -15,7 +15,7 @@ public class Move : Command
     {
         if (this.destination != null)
         {
-            Vector3 coords = MapManager.instance.tilemaps[destination.getHeight()].GetCellCenterWorld(new Vector3Int(destination.getX(), destination.getY(), 0));
+            Vector3 coords = MapManager.instance.tilemaps[destination.getHeight()].GetCellCenterWorld(new Vector3Int(destination.getVisualX(), destination.getVisualY(), 0));
             ChairMovementController.instance.nextPosition = coords;
             ChairMovementController.instance.heightLevel = destination.getHeight();
             ChairMovementController.instance.cellDestination = this.destination;

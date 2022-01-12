@@ -175,7 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 321985dd2292d754698d0bbb06583ca4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  type: 1
   prefab: {fileID: 4147331339748317154, guid: 46bbdf0ff9dbe3e47b08133213f24fb8, type: 3}
   tile: {fileID: 11400000, guid: 79a7fbf63e06e644a80ea0cf58da1d55, type: 2}
   sprites:
