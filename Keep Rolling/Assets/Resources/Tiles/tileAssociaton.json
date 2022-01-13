@@ -74,6 +74,22 @@
         },
         {
             "color":{
+                "G": 10,
+                "B": 10
+            },
+            "tileName": "passadeiraAsfaltoDir",
+            "cellType":  "PlaceRamp"
+        },
+        {
+            "color":{
+                "G": 10,
+                "B": 11
+            },
+            "tileName": "passadeiraAsfaltoEsq",
+            "cellType":  "PlaceRamp"
+        },
+        {
+            "color":{
                 "G": 11,
                 "B": 1
             },
@@ -215,21 +231,6 @@
             },
             "tileName": "calcadaBuracoDir",
             "cellType": "BrokenGround"
-        },        {
-            "color":{
-                "G": 50,
-                "B": 22
-            },
-            "tileName": "passadeiraAsfaltoDir",
-            "cellType":  "PlaceRamp"
-        },
-        {
-            "color":{
-                "G": 50,
-                "B": 23
-            },
-            "tileName": "passadeiraAsfaltoEsq",
-            "cellType":  "PlaceRamp"
         }
     ]
 }
