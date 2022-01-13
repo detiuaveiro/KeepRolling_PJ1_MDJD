@@ -35,6 +35,8 @@ public class LevelManager : MonoBehaviour
                     ChairMovementController.instance.commandQueue.Enqueue((Move)move);
                     // se calhar enviar um último command para saber quando chegou ao fim do nível?
                 }
+                solving = false;
+
             } // level failed 
             else {
                 solving = false;
