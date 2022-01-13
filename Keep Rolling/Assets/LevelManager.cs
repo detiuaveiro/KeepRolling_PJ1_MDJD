@@ -41,6 +41,7 @@ public class LevelManager : MonoBehaviour
                 Debug.Log("Lost");
                 // se calhar enviar comando ?
                 // enable control again
+                ObstacleShopManager.instance.EnableSelectingObstacle();
             }
         }
     }
@@ -84,6 +85,7 @@ public class LevelManager : MonoBehaviour
 
     public void StartSimulation() {
         // disable control
+        ObstacleShopManager.instance.DisableSelectingObstacle();
         StartCoroutine(SolveLevel());
     }
 
