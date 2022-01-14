@@ -40,6 +40,11 @@ public class LevelManager : MonoBehaviour
             else {
                 solving = false;
                 Debug.Log("Lost");
+                foreach (Command move in searchTree.best_node.GetCommandList())
+                {
+                    Debug.Log(((Move)move).destination);
+                    ChairMovementController.instance.commandQueue.Enqueue((Move)move);
+                }
                 // enable control again
                 ObstacleShopManager.instance.EnableSelectingObstacle();
             }
