@@ -34,6 +34,7 @@ public class LevelManager : MonoBehaviour
                     Debug.Log(((Move)move).destination);
                     ChairMovementController.instance.commandQueue.Enqueue((Move)move);
                 }
+                solving = false;
             } // level failed 
             else {
                 solving = false;
