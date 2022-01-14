@@ -16,17 +16,20 @@ public class SearchTree
     public int max_depth = 70;
     public Dictionary<Vector3, int> positions_done;
     private List<SearchNode> new_node_list;
+    public SearchNode best_node; 
     public bool search_complete;
 
     public SearchTree(Vector3 initial, Vector3 goal, CellMatrix domain) {
         this.initial = initial;
         this.goal = goal;
         this.domain = domain;
-        SearchNode root = new SearchNode(initial, null, 0, 0, 0, new Move(domain.GetCell((int)initial.x,(int)initial.y)));
+        Cell initial_cell = domain.GetCell((int)initial.x, (int)initial.y);
+        SearchNode root = new SearchNode(initial, null, 0, 0, Heuristic(initial_cell), new Move(initial_cell));
         open_nodes = new LinkedList<SearchNode>();
         open_nodes.AddFirst(root);
         solution = null;
         this.nodes_explored = 0;
+        best_node = root;
         search_complete = false;
         this.positions_done = new Dictionary<Vector3, int>();
         positions_done.Add(initial, 0);
@@ -49,6 +52,9 @@ public class SearchTree
             SearchNode node = open_nodes.First.Value;
             open_nodes.RemoveFirst();
             nodes_explored++;
+            if (node.heuristic < best_node.heuristic) {
+                best_node = node;
+            }
             //Debug.Log($"STATS {nodes_explored},{open_nodes.Count},{node.depth},{node.heuristic}");
             if (node.playerPosition == goal) {
                 UnityEngine.Debug.Log(frame_count);

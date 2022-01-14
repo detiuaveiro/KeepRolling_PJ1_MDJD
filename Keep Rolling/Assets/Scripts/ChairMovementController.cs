@@ -157,7 +157,6 @@ public class ChairMovementController : MonoBehaviour
         //No more movement
         else if (!moving && commandQueue.Count == 0 && commandLog.Count > 0 && !level_ended)
         {
-            //lost the level
             LevelManager.instance.OnMovementComplete();
             level_ended =true;
         }
