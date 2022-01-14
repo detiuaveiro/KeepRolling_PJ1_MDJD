@@ -43,6 +43,18 @@
         {
             "tile" : "sobeDesce",
             "defaultTile" : "relva" 
+        },
+        {
+            "tile" : "arbustoDir",
+            "defaultTile" : "relva" 
+        },
+        {
+            "tile" : "caixaAreia",
+            "defaultTile" : "relva" 
+        },
+        {
+            "tile" : "escorrega",
+            "defaultTile" : "relva" 
         }
     ]
 }

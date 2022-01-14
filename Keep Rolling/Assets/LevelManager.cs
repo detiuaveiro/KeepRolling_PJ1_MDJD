@@ -34,7 +34,6 @@ public class LevelManager : MonoBehaviour
                     Debug.Log(((Move)move).destination);
                     ChairMovementController.instance.commandQueue.Enqueue((Move)move);
                 }
-                GenerateScore();
             } // level failed 
             else {
                 solving = false;
@@ -54,7 +53,8 @@ public class LevelManager : MonoBehaviour
         // won the level
         if (LevelCompleteWithSuccess())
         {
-            Debug.Log("ganhou");
+            float score = GenerateScore();
+            Debug.Log("ganhou:"+ score);
         } // lost the level
         else
         {
@@ -123,13 +123,10 @@ public class LevelManager : MonoBehaviour
         yield return null;
     }
 
-    private void GenerateScore()
+    private float GenerateScore()
     {
         List<Command> solution = searchTree.GetCommandSolution();
-        Debug.Log(searchTree.nodes_explored);
-        Debug.Log(solution.Count);
-        Debug.Log(((searchTree.nodes_explored - solution.Count) * 300));
-        float score = ((levelConfig.totalBalance/(levelConfig.totalBalance - currentBalance)) * 100f); //+ ((searchTree.nodes_explored -  solution.Count) * 300);
-        Debug.Log("Score:"+score);
+        float score = ((levelConfig.totalBalance/(levelConfig.totalBalance - currentBalance)) * 100f) + ((searchTree.max_depth - solution.Count) * 300);
+        return score;
     }
 }

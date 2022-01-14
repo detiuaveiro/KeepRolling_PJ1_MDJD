@@ -218,6 +218,22 @@
         },
         {
             "color":{
+                "G": 13,
+                "B": 13
+            },
+            "tileName": "arbustoDir",
+            "cellType":  "None"
+        },
+        {
+            "color":{
+                "G": 13,
+                "B": 14
+            },
+            "tileName": "escorrega",
+            "cellType":  "None"
+        },
+        {
+            "color":{
                 "G": 50,
                 "B": 20
             },
