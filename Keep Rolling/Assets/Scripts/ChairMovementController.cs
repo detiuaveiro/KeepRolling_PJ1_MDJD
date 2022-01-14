@@ -158,14 +158,8 @@ public class ChairMovementController : MonoBehaviour
         else if (!moving && commandQueue.Count == 0 && commandLog.Count > 0 && !level_ended)
         {
             //lost the level
-            if (LevelManager.instance.searchTree.solution is null)
-            {
-                Debug.Log("perdeu");
-            } // won the level
-            else {
-                Debug.Log("ganhou");
-            }
-            level_ended=true;
+            LevelManager.instance.OnMovementComplete();
+            level_ended =true;
         }
 
         if (moving && nextPosition != null)

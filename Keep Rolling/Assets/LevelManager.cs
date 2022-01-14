@@ -33,7 +33,6 @@ public class LevelManager : MonoBehaviour
                 {
                     Debug.Log(((Move)move).destination);
                     ChairMovementController.instance.commandQueue.Enqueue((Move)move);
-                    // se calhar enviar um último command para saber quando chegou ao fim do nível?
                 }
                 solving = false;
 
@@ -41,11 +40,27 @@ public class LevelManager : MonoBehaviour
             else {
                 solving = false;
                 Debug.Log("Lost");
-                // se calhar enviar comando ?
                 // enable control again
                 ObstacleShopManager.instance.EnableSelectingObstacle();
             }
         }
+    }
+
+    public void OnMovementComplete() {
+        // won the level
+        if (LevelCompleteWithSuccess())
+        {
+            Debug.Log("ganhou");
+        } // lost the level
+        else
+        {
+            Debug.Log("perdeu");
+        }
+    }
+
+
+    public bool LevelCompleteWithSuccess() {
+        return !(searchTree.solution is null);
     }
 
     [System.Serializable]
