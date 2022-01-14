@@ -7,7 +7,7 @@ public class LevelManager : MonoBehaviour
 {
     public static LevelManager instance;
     public Text balanceLabel;
-    SearchTree searchTree;
+    public SearchTree searchTree;
     bool solving = false;
     private int currentBalance;
     void Awake()

@@ -16,6 +16,7 @@ public class ChairMovementController : MonoBehaviour
     public Cell cellDestination;
     private Cell currentCell;
     private List<Cell> cellsToRestoreTransparency;
+    private bool level_ended=false;
 
     public int heightLevel;
 
@@ -153,6 +154,19 @@ public class ChairMovementController : MonoBehaviour
 
             moving = true;
         }
+        //No more movement
+        else if (!moving && commandQueue.Count == 0 && commandLog.Count > 0 && !level_ended)
+        {
+            //lost the level
+            if (LevelManager.instance.searchTree.solution is null)
+            {
+                Debug.Log("perdeu");
+            } // won the level
+            else {
+                Debug.Log("ganhou");
+            }
+            level_ended=true;
+        }
 
         if (moving && nextPosition != null)
         {
@@ -166,5 +180,6 @@ public class ChairMovementController : MonoBehaviour
                 animator.SetBool("Idle", true);
             }
         }
+        
     }
 }
