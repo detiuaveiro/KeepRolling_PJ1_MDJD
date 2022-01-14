@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e6f3fbb560bd6041a202ea918fa4f23, type: 3}
   m_Name: sobeDesce
   m_EditorClassIdentifier: 
-  m_DefaultSprite: {fileID: 21300000, guid: 0455ac3422ccd1b448cf49ce1995d474, type: 3}
+  m_DefaultSprite: {fileID: 21300000, guid: a0be907e675b4024bb1fd16309fcd3e9, type: 3}
   m_DefaultGameObject: {fileID: 0}
   m_DefaultColliderType: 1
   m_TilingRules: []
