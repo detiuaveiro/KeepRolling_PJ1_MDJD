@@ -35,6 +35,7 @@ public class LevelManager : MonoBehaviour
                     ChairMovementController.instance.commandQueue.Enqueue((Move)move);
                     // se calhar enviar um último command para saber quando chegou ao fim do nível?
                 }
+                GenerateScore();
             } // level failed 
             else {
                 solving = false;
@@ -100,5 +101,15 @@ public class LevelManager : MonoBehaviour
         solving = true;
         StartCoroutine(searchTree.search());
         yield return null;
+    }
+
+    private void GenerateScore()
+    {
+        List<Command> solution = searchTree.GetCommandSolution();
+        Debug.Log(searchTree.nodes_explored);
+        Debug.Log(solution.Count);
+        Debug.Log(((searchTree.nodes_explored - solution.Count) * 300));
+        float score = ((levelConfig.totalBalance/(levelConfig.totalBalance - currentBalance)) * 100f); //+ ((searchTree.nodes_explored -  solution.Count) * 300);
+        Debug.Log("Score:"+score);
     }
 }
