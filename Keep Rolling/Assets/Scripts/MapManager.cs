@@ -212,6 +212,7 @@ public class MapManager : MonoBehaviour
         int offset = 0;
         Vector3Int cellPos1 = tilemaps[0].WorldToCell(mousePos);
         Cell lastSnappedCell = cell_matrix.GetCell(cellPos1.x, cellPos1.y);
+        /*
         if (lastSnappedCell is null || !CanPlaceTile(lastSnappedCell, piece, offset)) {
             offset++;
             lastSnappedCell = null;
@@ -229,18 +230,18 @@ public class MapManager : MonoBehaviour
                         lastSnappedCell = temp;
                         break;
                     }
-                    /*
+                    *//*
                     if (!temp.CanPlaceOnTop(piece.type))
                     {
                         break;
                     }
                     */
-                }
+                /*}
                 //Debug.Log(lastSnappedCell);
                 offset++;
             }
             Debug.Log("saiu");
-        }
+        }*/
         return Tuple.Create(lastSnappedCell, offset);
     }
 

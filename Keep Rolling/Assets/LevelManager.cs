@@ -7,7 +7,7 @@ public class LevelManager : MonoBehaviour
 {
     public static LevelManager instance;
     public Text balanceLabel;
-    SearchTree searchTree;
+    public SearchTree searchTree;
     bool solving = false;
     private int currentBalance;
     void Awake()
@@ -33,18 +33,38 @@ public class LevelManager : MonoBehaviour
                 {
                     Debug.Log(((Move)move).destination);
                     ChairMovementController.instance.commandQueue.Enqueue((Move)move);
-                    // se calhar enviar um último command para saber quando chegou ao fim do nível?
                 }
                 GenerateScore();
             } // level failed 
             else {
                 solving = false;
                 Debug.Log("Lost");
-                // se calhar enviar comando ?
+                foreach (Command move in searchTree.best_node.GetCommandList())
+                {
+                    Debug.Log(((Move)move).destination);
+                    ChairMovementController.instance.commandQueue.Enqueue((Move)move);
+                }
                 // enable control again
                 ObstacleShopManager.instance.EnableSelectingObstacle();
             }
         }
+    }
+
+    public void OnMovementComplete() {
+        // won the level
+        if (LevelCompleteWithSuccess())
+        {
+            Debug.Log("ganhou");
+        } // lost the level
+        else
+        {
+            Debug.Log("perdeu");
+        }
+    }
+
+
+    public bool LevelCompleteWithSuccess() {
+        return !(searchTree.solution is null);
     }
 
     [System.Serializable]

@@ -49,6 +49,16 @@ public class SearchNode
         */
     }
 
+    public List<Command> GetCommandList()
+    {
+        List<Command> ret = new List<Command>();
+        foreach (SearchNode node in GetParents())
+        {
+            ret.Add(node.action);
+        }
+        return ret;
+    }
+
     public override string ToString()
     {
         return $"SearchNode position:{playerPosition} depth:{depth} parent:{parent} ";
