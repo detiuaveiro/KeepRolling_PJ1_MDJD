@@ -102,7 +102,7 @@
                 "B": 2
             },
             "tileName": "gravilha",
-            "cellType":  "None"
+            "cellType":  "Ground"
         },
         {
             "color":{

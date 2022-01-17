@@ -49,7 +49,7 @@ public class InGameMenuManager : MonoBehaviour
 
     public void Restart()
     {
-
+        SceneManager.LoadScene("InGame");
     }
 
     public void OpenSettings()

@@ -13,10 +13,14 @@ public class GameManager : MonoBehaviour
     {
         if (instance != null)
         {
+            Debug.Log("destroying game manage");
             Destroy(this.gameObject);
         }
-        instance = this;
-        DontDestroyOnLoad(this.gameObject);
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
     }
 
     public int GetCurrentLevel()

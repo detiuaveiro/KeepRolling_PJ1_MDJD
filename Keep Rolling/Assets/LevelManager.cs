@@ -10,6 +10,9 @@ public class LevelManager : MonoBehaviour
     public SearchTree searchTree;
     bool solving = false;
     private int currentBalance;
+
+    public GameObject finalScreen;
+    public Text finalScreenLabel;
     void Awake()
     {
         if (instance != null)
@@ -55,11 +58,15 @@ public class LevelManager : MonoBehaviour
         if (LevelCompleteWithSuccess())
         {
             float score = GenerateScore();
-            Debug.Log("ganhou:"+ score);
+            finalScreenLabel.text = "Level Completed\nScore: " + score;
+            finalScreen.SetActive(true);
+            //Debug.Log("ganhou:"+ score);
         } // lost the level
         else
         {
-            Debug.Log("perdeu");
+            finalScreenLabel.text = "Level Failed";
+            finalScreen.SetActive(true);
+            //Debug.Log("perdeu");
         }
     }
 

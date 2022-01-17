@@ -6,17 +6,17 @@ public class ChairMovementController : MonoBehaviour
 {
     public static ChairMovementController instance;
 
-    private List<Command> commandLog = new List<Command>();
-    public Queue<Command> commandQueue = new Queue<Command>();
+    private List<Command> commandLog;
+    public Queue<Command> commandQueue;
 
     public SpriteRenderer ChairSprite;
 
-    private bool moving = false;
+    private bool moving;
     public Vector3 nextPosition;
     public Cell cellDestination;
     private Cell currentCell;
     private List<Cell> cellsToRestoreTransparency;
-    private bool level_ended=false;
+    private bool level_ended;
 
     public int heightLevel;
 
@@ -27,12 +27,18 @@ public class ChairMovementController : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-
-        instance = this;
+        else
+        {
+            instance = this;
+        }
     }
 
     private void Start()
     {
+        commandLog = new List<Command>();
+        commandQueue = new Queue<Command>();
+        moving = false;
+        level_ended = false;
         cellsToRestoreTransparency = new List<Cell>();
     }
 
