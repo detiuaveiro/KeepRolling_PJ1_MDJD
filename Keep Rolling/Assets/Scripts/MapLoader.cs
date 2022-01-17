@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using UnityEngine.Tilemaps;
 
-public class MapLoader 
+public class MapLoader : MonoBehaviour
 {
     [System.Serializable]
     private class DefaultTileAssociation
@@ -88,36 +88,56 @@ public class MapLoader
                 Tile tile = getTileFromColor(pixel, tilesData);
                 if (tile != null)
                 {
-                    IsometricRuleTile newTile = Resources.Load<IsometricRuleTile>("Tiles/" + tile.tileName);
-                    if (newTile != null)
+                    float division = pixel.r / 10.0f;
+                    int height = (int)division;
+                    if (pixel.g == 14)
                     {
-                        float division = pixel.r / 10.0f;
-                        int height = (int)division;
+                        GameObject dinamico = Resources.Load<GameObject>("Tiles/" + tile.tileName);
+                        Vector3 position = tilemaps[height].CellToWorld(new Vector3Int(j, image.width - i + 1, 0));
+                        Instantiate(dinamico, position, new Quaternion(0f,0f,0f,0f));
                         if (tilemaps[height] != null)
                         {
-                            tilemaps[height].SetTile(new Vector3Int( j  , image.width - i +1, 0), newTile);
-                            Cell cell = CellFactory.CreateCellFromCellName(j + height, image.width - i + 1 + height, height, tile.cellType);
-                            if (!(cell is null))
-                                cellList.Add(cell);
                             for (int k = 0; k < defaulTtilesData.associations.Length; k++)
                             {
                                 if (defaulTtilesData.associations[k].tile.Equals(tile.tileName))
                                 {
                                     IsometricRuleTile defaultTile = Resources.Load<IsometricRuleTile>("Tiles/" + defaulTtilesData.associations[k].defaultTile);
-                                    tilemaps[height-1].SetTile(new Vector3Int(j, image.width - i + 1, 0), defaultTile);
+                                    tilemaps[height - 1].SetTile(new Vector3Int(j, image.width - i + 1, 0), defaultTile);
                                     break;
                                 }
                             }
-                            /*for (int k =0; k < height; k++) {
-                                tilemaps[k].SetTile(new Vector3Int(j + k, image.width - i +k , 0), defaultGroundTile);
-                            }*/
-                            int special = (int)((division - Math.Truncate(division)) * 10.0f);
-                            if (special == 1)
+                        }
+                    }
+                    else
+                    {
+                        IsometricRuleTile newTile = Resources.Load<IsometricRuleTile>("Tiles/" + tile.tileName);
+                        if (newTile != null)
+                        {
+                            if (tilemaps[height] != null)
                             {
-                                MapManager.instance.startPosition = new Vector3Int(j, image.width - i + 1, height);
-                            } else if (special == 2)
-                            {
-                                MapManager.instance.endPosition = new Vector3Int(j, image.width - i + 1, height);
+                                tilemaps[height].SetTile(new Vector3Int(j, image.width - i + 1, 0), newTile);
+                                Cell cell = CellFactory.CreateCellFromCellName(j + height, image.width - i + 1 + height, height, tile.cellType);
+                                if (!(cell is null))
+                                    cellList.Add(cell);
+                                for (int k = 0; k < defaulTtilesData.associations.Length; k++)
+                                {
+                                    if (defaulTtilesData.associations[k].tile.Equals(tile.tileName))
+                                    {
+                                        IsometricRuleTile defaultTile = Resources.Load<IsometricRuleTile>("Tiles/" + defaulTtilesData.associations[k].defaultTile);
+                                        tilemaps[height - 1].SetTile(new Vector3Int(j, image.width - i + 1, 0), defaultTile);
+                                        break;
+                                    }
+                                }
+
+                                int special = (int)((division - Math.Truncate(division)) * 10.0f);
+                                if (special == 1)
+                                {
+                                    MapManager.instance.startPosition = new Vector3Int(j, image.width - i + 1, height);
+                                }
+                                else if (special == 2)
+                                {
+                                    MapManager.instance.endPosition = new Vector3Int(j, image.width - i + 1, height);
+                                }
                             }
                         }
                     }
