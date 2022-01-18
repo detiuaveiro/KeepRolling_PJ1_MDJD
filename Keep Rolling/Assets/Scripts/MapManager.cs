@@ -31,6 +31,12 @@ public class MapManager : MonoBehaviour
     {
         List<Cell> cellList = MapLoader.loadLevel(GameManager.instance.GetCurrentLevel(),tilemaps);
         CreateCellGridFromList(cellList);
+        ChairMovementController.instance.transform.position = tilemaps[startPosition.z].CellToWorld(startPosition);
+        Cell endCell = cell_matrix.GetCell(endPosition.x, endPosition.y);
+        tilemaps[endPosition.z].SetColor(new Vector3Int(endCell.getVisualX(),endCell.getVisualY(),0), new Color(1.0f,0f,0f,1));
+        JumpingPin.instance.ground = tilemaps[startPosition.z].CellToWorld(endPosition);
+        JumpingPin.instance.transform.position = tilemaps[startPosition.z].CellToWorld(endPosition);
+        JumpingPin.instance.velocity = 0;
     }
 
     void Update()
@@ -46,7 +52,6 @@ public class MapManager : MonoBehaviour
         Debug.Log(endPosition);
         //startPosition = new Vector3Int(2, 6, 0);
         //endPosition = new Vector3Int(2, 6, 0);
-        ChairMovementController.instance.transform.position = tilemaps[startPosition.z].CellToWorld(startPosition);
         /*
         foreach (Cell cell in cell_matrix.GetAllCells())
         {
