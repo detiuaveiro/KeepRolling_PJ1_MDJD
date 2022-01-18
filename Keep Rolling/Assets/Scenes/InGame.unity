@@ -9431,7 +9431,7 @@ GameObject:
   - component: {fileID: 2124675163}
   - component: {fileID: 2124675162}
   m_Layer: 0
-  m_Name: pngegg
+  m_Name: ArrivalPin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9452,7 +9452,7 @@ MonoBehaviour:
   ground: {x: 0, y: 0, z: 0}
   velocity: 0
   gravity: 10
-  velocity_jump: 5
+  velocity_jump: 4.5
 --- !u!212 &2124675163
 SpriteRenderer:
   m_ObjectHideFlags: 0
