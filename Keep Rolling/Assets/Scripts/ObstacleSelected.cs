@@ -42,16 +42,16 @@ public class ObstacleSelected : MonoBehaviour
             Vector3 place = Vector3.zero;
             switch (piece.type) {
                 case PieceType.Ramp:
-                    place = MapManager.instance.tilemaps[lastSnappedCell.getHeight()+1].GetCellCenterWorld(new Vector3Int(x, y, 0));
+                    place = MapManager.instance.tilemaps[lastSnappedCell.getHeight() + 1].GetCellCenterWorld(new Vector3Int(x, y, 0));
                     break;
                 case PieceType.FixGround:
                     place = MapManager.instance.tilemaps[lastSnappedCell.getHeight()].GetCellCenterWorld(new Vector3Int(x, y, 0));
                     break;
             }
-            
-            
+
+
             transform.position = place;
-            if (MapManager.instance.CanPlaceTile(lastSnappedCell, piece,offset))
+            if (MapManager.instance.CanPlaceTile(lastSnappedCell, piece, offset))
             {
                 this.gameObject.GetComponent<SpriteRenderer>().color = new Color(0.2f, 1, 0.2f, 0.75f);
             } else
@@ -60,7 +60,7 @@ public class ObstacleSelected : MonoBehaviour
             }
             if (Input.GetButton("Fire1"))
             {
-                if (MapManager.instance.PlaceTile(lastSnappedCell, sprites[currentSprite], offset,piece,(Direction)currentSprite)) {
+                if (MapManager.instance.PlaceTile(lastSnappedCell, sprites[currentSprite], offset, piece, (Direction)currentSprite)) {
                     Destroy(this.gameObject);
                 }
             }
@@ -72,6 +72,9 @@ public class ObstacleSelected : MonoBehaviour
         if (Input.GetButtonDown("Rotate Objects"))
         {
             ChangeSprite();
+        }
+        if (Input.GetButtonDown("Deselect Object")) {
+            Destroy(this.gameObject);
         }
     }
 }
