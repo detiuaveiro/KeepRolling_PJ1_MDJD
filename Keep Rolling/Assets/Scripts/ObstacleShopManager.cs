@@ -42,7 +42,7 @@ public class ObstacleShopManager : MonoBehaviour
 
     public void obstacleCliked(Piece obstacle)
     {
-        if (canSelectObstacle) { 
+        if (canSelectObstacle) {
             if (!(piece is null))
             {
                 Destroy(piece);
