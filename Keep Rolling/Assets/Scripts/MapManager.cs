@@ -17,6 +17,7 @@ public class MapManager : MonoBehaviour
     public Vector3Int endPosition;
     public bool solve = false;
 
+    private List<PlaceObject> placeObjectLog;
     void Start()
     {
         if (instance != null)
@@ -26,6 +27,7 @@ public class MapManager : MonoBehaviour
 
         instance = this;
         LoadScene();
+        placeObjectLog = new List<PlaceObject>();
     }
 
     private void LoadScene()
@@ -44,6 +46,15 @@ public class MapManager : MonoBehaviour
         if (solve) {
             solve = false;
             StartCoroutine(SolveLevel());
+        }
+        if (Input.GetKeyDown(KeyCode.Backspace))
+        {
+            if (placeObjectLog.Count > 0)
+            {
+                PlaceObject command = placeObjectLog[placeObjectLog.Count - 1];
+                placeObjectLog.Remove(command);
+                command.Undo();
+            }
         }
     }
 
@@ -107,48 +118,6 @@ public class MapManager : MonoBehaviour
 
     }
 
-    private void CreateCellGrid()
-    {
-        var cell_list = new List<Cell>();
-        int min_y = 1000, min_x = 1000, max_y = -1000, max_x = -1000;
-
-        for (int height = 0; height < tilemaps.Count; height++)
-        {
-            var tilemap = tilemaps[height];
-            foreach (var pos in tilemap.cellBounds.allPositionsWithin)
-            {
-                Vector3Int localPlace = new Vector3Int(pos.x, pos.y, pos.z);
-                //useful function
-                //Vector3 place = tilemap.CellToWorld(localPlace);
-                if (tilemap.HasTile(localPlace))
-                {
-                    TileBase tilebase = tilemap.GetTile(localPlace);
-                    Cell cell = CellFactory.CreateCell(pos.x, pos.y, height, tilebase.name);
-                    cell_list.Add(cell);
-                    min_x = Mathf.Min(min_x, pos.x);
-                    min_y = Mathf.Min(min_y, pos.y);
-                    max_x = Mathf.Max(max_x, pos.x);
-                    max_y = Mathf.Max(max_y, pos.y);
-                }
-            }
-        }
-
-        cell_matrix = new CellMatrix(min_x, min_y, max_x, max_y);
-        Debug.Log(min_x);
-        Debug.Log(min_y);
-        Debug.Log(max_x);
-        Debug.Log(max_y);
-
-        //CanPlaceTile(cells[0], null);
-
-        foreach (Cell cell in cell_list)
-        {
-            cell_matrix.AddCell(cell);
-            //Debug.Log(cell);
-        }
-        
-    }
-
     private bool CanPlaceTileHere(int x, int y, int height)
     {
         return (!cell_matrix.HasCell(x, y) || cell_matrix.GetCell(x, y).getHeight() < height);
@@ -190,21 +159,17 @@ public class MapManager : MonoBehaviour
             return false;
 
         //TODO: keep adding PieceTypes
-        IsometricRuleTile newTile = new IsometricRuleTile();
-        Cell new_cell = null;
         switch (piece.type)
         {
             case PieceType.Ramp:
-                newTile.m_DefaultSprite = sprite;
-                tilemaps[cell.getHeight() + height + 1].SetTile(new Vector3Int(cell.getX()+height,cell.getY()+height,0), newTile);
-                new_cell = new RampCell(cell.getX()+1+height, cell.getY()+1+height, cell.getHeight()+height + 1,direction);
-                cell_matrix.AddCell(new_cell);
+                PlaceObject command = new PlaceObject(sprite,cell,height,direction, piece);
+                command.Execute();
+                placeObjectLog.Add(command);
                 break;
             case PieceType.FixGround:
-                newTile = piece.tile;
-                tilemaps[cell.getHeight() + height].SetTile(new Vector3Int(cell.getVisualX() + height, cell.getVisualY() + height, 0), newTile);
-                new_cell = new GroundCell(cell.getX() + height, cell.getY() + height, cell.getHeight() + height);
-                cell_matrix.AddCell(new_cell);
+                PlaceObject command2 = new PlaceObject(sprite, cell, height, direction, piece);
+                command2.Execute();
+                placeObjectLog.Add(command2);
                 break;
             default:
                 return false;

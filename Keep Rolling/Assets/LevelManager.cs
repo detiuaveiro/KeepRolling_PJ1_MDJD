@@ -102,6 +102,12 @@ public class LevelManager : MonoBehaviour
         return false;
     }
 
+    public void RefoundPiece(Piece piece)
+    {
+        currentBalance += piece.price;
+        UpdateBalance();
+    }
+
     public int GetCurrentBalance()
     {
         return currentBalance;
