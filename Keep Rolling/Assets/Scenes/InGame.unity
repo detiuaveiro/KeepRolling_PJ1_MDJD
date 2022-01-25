@@ -5378,7 +5378,8 @@ MonoBehaviour:
   - {fileID: 259451592}
   - {fileID: 481268419}
   - {fileID: 2109267496}
-  pin_prefab: {fileID: 8173298527989534670, guid: fd894cca1cb256447b29482b5385077a, type: 3}
+  arrival_pin_prefab: {fileID: 8173298527989534670, guid: fd894cca1cb256447b29482b5385077a, type: 3}
+  start_pin_prefab: {fileID: 8173298527989534670, guid: 7e8eab304cff7734ba86edc57a4ae0ec, type: 3}
   startPosition: {x: 0, y: 0, z: 0}
   endPosition: {x: 0, y: 0, z: 0}
   solve: 0

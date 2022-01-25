@@ -11,7 +11,8 @@ public class MapManager : MonoBehaviour
     public List<Tilemap> tilemaps;
     //public List<Cell> cells;
     public CellMatrix cell_matrix;
-    public GameObject pin_prefab;
+    public GameObject arrival_pin_prefab;
+    public GameObject start_pin_prefab;
 
     public Vector3Int startPosition;
     public Vector3Int endPosition;
@@ -35,10 +36,15 @@ public class MapManager : MonoBehaviour
         List<Cell> cellList = MapLoader.loadLevel(GameManager.instance.GetCurrentLevel(),tilemaps);
         CreateCellGridFromList(cellList);
         ChairMovementController.instance.transform.position = tilemaps[startPosition.z].CellToWorld(startPosition);
+        Cell startCell = cell_matrix.GetCell(startPosition.x, startPosition.y);
+        var obj = Instantiate(start_pin_prefab, transform);
+        var pos = tilemaps[startPosition.z].GetCellCenterWorld(new Vector3Int(startCell.getVisualX(), startCell.getVisualY(), 0));
+        obj.transform.position = pos;
         Cell endCell = cell_matrix.GetCell(endPosition.x, endPosition.y);
-        tilemaps[endPosition.z].SetColor(new Vector3Int(endCell.getVisualX(),endCell.getVisualY(),0), new Color(1.0f,0f,0f,1));
-        var obj = Instantiate(pin_prefab, transform);
-        obj.transform.position = tilemaps[endPosition.z].CellToWorld(new Vector3Int(endCell.getVisualX(), endCell.getVisualY(), 0));
+        //tilemaps[endPosition.z].SetColor(new Vector3Int(endCell.getVisualX(),endCell.getVisualY(),0), new Color(1.0f,0f,0f,1));
+        obj = Instantiate(arrival_pin_prefab, transform);
+        pos = tilemaps[endPosition.z].GetCellCenterWorld(new Vector3Int(endCell.getVisualX(), endCell.getVisualY(), 0));
+        obj.transform.position = pos;
     }
 
     void Update()
