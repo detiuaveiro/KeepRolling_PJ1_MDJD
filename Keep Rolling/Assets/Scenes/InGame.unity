@@ -179,7 +179,7 @@ MonoBehaviour:
   prefab: {fileID: 4147331339748317154, guid: eb92d7d91c02d864981b416a54847750, type: 3}
   tile: {fileID: 11400000, guid: c57efea6a8f06c9488bf00f1de8f03f1, type: 2}
   sprites:
-  - {fileID: 21300000, guid: 1829b0c3c8f024542932e2880530138c, type: 3}
+  - {fileID: 21300000, guid: d2487da89f5319243ac5214ba4a843db, type: 3}
   price: 200
   label: {fileID: 1420943606}
 --- !u!114 &1130824
