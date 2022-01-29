@@ -9,6 +9,7 @@ public class MainMenuController : MonoBehaviour
     public GameObject Play;
     public GameObject Settings;
     public GameObject Leaderboard;
+    public GameObject ModifyChar;
 
     private GameObject currentDisplaying;
     private List<Command> NavigateLog;
@@ -64,6 +65,11 @@ public class MainMenuController : MonoBehaviour
         Navigate(Leaderboard);
     }
 
+    public void NavigateModifyChar()
+    {
+        Navigate(ModifyChar);
+    }
+
     private void Navigate(GameObject destiny)
     {
         if (currentDisplaying != null)
@@ -88,6 +94,11 @@ public class MainMenuController : MonoBehaviour
     public void LeaderBoardButton()
     {
         ExecuteCommand(new GoToLeaderboard(this));
+    }
+
+    public void ModifyCharButton()
+    {
+        ExecuteCommand(new GoToModifyChar(this));
     }
 
     private void ExecuteCommand(Command command)
