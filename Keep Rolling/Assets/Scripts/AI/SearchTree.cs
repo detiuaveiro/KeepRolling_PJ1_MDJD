@@ -18,6 +18,7 @@ public class SearchTree
     private List<SearchNode> new_node_list;
     public SearchNode best_node; 
     public bool search_complete;
+    public List<SearchNode> dead_end_node_list;
 
     public SearchTree(Vector3 initial, Vector3 goal, CellMatrix domain) {
         this.initial = initial;
@@ -34,6 +35,7 @@ public class SearchTree
         this.positions_done = new Dictionary<Vector3, int>();
         positions_done.Add(initial, 0);
         new_node_list = new List<SearchNode>();
+        dead_end_node_list = new List<SearchNode>();
     }
 
     public IEnumerator search() {
@@ -64,10 +66,15 @@ public class SearchTree
                 break;
             }
             DefineNewNodes(node);
-            if (new_node_list.Count > 0) {
+            if (new_node_list.Count > 0)
+            {
                 new_node_list.Sort((n1, n2) => n1.heuristic.CompareTo(n2.heuristic));
                 //open_nodes.AddRange(new_node_list);
                 SortNodes();
+            }
+            else {
+                node.is_dead_end = true;
+                dead_end_node_list.Add(node);
             }
             //UnityEngine.Debug.Log(stopwatch.ElapsedMilliseconds);
             if (stopwatch.ElapsedMilliseconds > (frame_time/2)*1000) {
@@ -85,17 +92,6 @@ public class SearchTree
 
     public void SortNodes()
     {
-        /*
-        SearchNode[] searchNodes = open_nodes.ToArray();
-        open_nodes.Clear();
-        Array.Sort(searchNodes, (n1, n2) => n1.heuristic.CompareTo(n2.heuristic));
-        */
-        //open_nodes.Sort((n1, n2) => n1.heuristic.CompareTo(n2.heuristic));
-        /*
-        open_nodes.Sort((n1, n2) => { 
-            return (int)(n1.heuristic - n2.heuristic); 
-        });
-        */
         var linked_node = open_nodes.First;
         int i = 0;
         while (!(linked_node is null) && i < new_node_list.Count) {

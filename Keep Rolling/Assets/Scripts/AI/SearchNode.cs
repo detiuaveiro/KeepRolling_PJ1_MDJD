@@ -11,6 +11,7 @@ public class SearchNode
     public int cost;
     public double heuristic;
     public Command action;
+    public bool is_dead_end;
 
     public SearchNode(Vector3 playerPosition, SearchNode parent, int depth, int cost, double heuristic, Command action) {
         this.playerPosition = playerPosition;
@@ -19,6 +20,7 @@ public class SearchNode
         this.cost = cost;
         this.heuristic = heuristic;
         this.action = action;
+        this.is_dead_end = false;
     }
 
     public List<SearchNode> GetParents() {
