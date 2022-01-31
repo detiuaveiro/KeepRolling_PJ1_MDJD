@@ -17,6 +17,7 @@ public class ChairMovementController : MonoBehaviour
     private Cell currentCell;
     private List<Cell> cellsToRestoreTransparency;
     private bool level_ended;
+    private float speed=1; 
 
     public int heightLevel;
 
@@ -175,7 +176,7 @@ public class ChairMovementController : MonoBehaviour
         {
             if (Vector3.Distance(this.transform.position, new Vector2(nextPosition.x, nextPosition.y)) > 0.001f)
             {
-                this.transform.position = Vector2.MoveTowards(transform.position, new Vector2(nextPosition.x, nextPosition.y), 1.0f * Time.deltaTime);
+                this.transform.position = Vector2.MoveTowards(transform.position, new Vector2(nextPosition.x, nextPosition.y), speed * Time.deltaTime);
             } else
             {
                 currentCell = cellDestination;
@@ -184,5 +185,9 @@ public class ChairMovementController : MonoBehaviour
             }
         }
         
+    }
+
+    public void SetSpeed(float value) {
+        speed = value;
     }
 }
