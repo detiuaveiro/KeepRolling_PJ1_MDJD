@@ -61,6 +61,20 @@ public class SearchNode
         return ret;
     }
 
+    public static int GetCommonPoint(SearchNode node1, SearchNode node2)
+    {
+        List<SearchNode> node1_parents = node1.GetParents();
+        List<SearchNode> node2_parents = node2.GetParents();
+        for (int i = 0; i < Math.Min(node1_parents.Count, node2_parents.Count); i++)
+        {
+            if (node1_parents[i].playerPosition != node2_parents[i].playerPosition)
+            {
+                return node1_parents[i].depth - 1;
+            }
+        }
+        return node1.depth <= node2.depth ? node1.depth : node2.depth;
+    }
+
     public override string ToString()
     {
         return $"SearchNode position:{playerPosition} depth:{depth} parent:{parent} ";

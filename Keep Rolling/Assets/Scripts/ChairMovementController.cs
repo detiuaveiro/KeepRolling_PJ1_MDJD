@@ -49,6 +49,7 @@ public class ChairMovementController : MonoBehaviour
         moving = false;
         level_ended = false;
         cellsToRestoreTransparency = new List<Cell>();
+        changeRenderingLayer();
     }
 
     void changeRenderingLayer()

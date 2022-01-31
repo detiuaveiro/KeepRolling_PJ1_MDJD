@@ -42,11 +42,28 @@ public class LevelManager : MonoBehaviour
             else {
                 solving = false;
                 Debug.Log("Lost");
-                foreach (Command move in searchTree.best_node.GetCommandList())
+
+                searchTree.dead_end_node_list.Sort((n1, n2) => n1.heuristic.CompareTo(n2.heuristic));
+                SearchNode node1 = searchTree.dead_end_node_list[0];
+                var node1_comm_list = node1.GetCommandList();
+                foreach (Command move in node1_comm_list)
                 {
                     Debug.Log(((Move)move).destination);
                     ChairMovementController.instance.commandQueue.Enqueue((Move)move);
                 }
+                if (searchTree.dead_end_node_list.Count > 1) { 
+                    SearchNode node2 = searchTree.dead_end_node_list[1];
+                    int common_point = SearchNode.GetCommonPoint(node1, node2);
+                    for (int i = node1_comm_list.Count - 1; i >= common_point; i--) {
+                        ChairMovementController.instance.commandQueue.Enqueue((Move)node1_comm_list[i]);
+                    }
+                    var node2_comm_list = node2.GetCommandList();
+                    for (int j = common_point + 1; j < node2_comm_list.Count; j++) {
+                        ChairMovementController.instance.commandQueue.Enqueue((Move)node2_comm_list[j]);
+                    }
+                }
+
+
                 // enable control again
                 ObstacleShopManager.instance.EnableSelectingObstacle();
             }
@@ -73,9 +90,10 @@ public class LevelManager : MonoBehaviour
     public void Retry()
     {
         finalScreen.SetActive(false);
-        ChairMovementController.instance.RestartMovement();
         var startPosition = MapManager.instance.startPosition;
         ChairMovementController.instance.transform.position = MapManager.instance.tilemaps[startPosition.z].CellToWorld(startPosition);
+        ChairMovementController.instance.heightLevel = startPosition.z;
+        ChairMovementController.instance.RestartMovement();
     }
 
     public bool LevelCompleteWithSuccess() {
