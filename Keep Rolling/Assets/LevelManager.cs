@@ -70,6 +70,13 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    public void Retry()
+    {
+        finalScreen.SetActive(false);
+        ChairMovementController.instance.RestartMovement();
+        var startPosition = MapManager.instance.startPosition;
+        ChairMovementController.instance.transform.position = MapManager.instance.tilemaps[startPosition.z].CellToWorld(startPosition);
+    }
 
     public bool LevelCompleteWithSuccess() {
         return !(searchTree.solution is null);

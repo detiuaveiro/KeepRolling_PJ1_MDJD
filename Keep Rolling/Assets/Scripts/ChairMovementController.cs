@@ -43,6 +43,14 @@ public class ChairMovementController : MonoBehaviour
         cellsToRestoreTransparency = new List<Cell>();
     }
 
+    public void RestartMovement() {
+        commandLog = new List<Command>();
+        commandQueue = new Queue<Command>();
+        moving = false;
+        level_ended = false;
+        cellsToRestoreTransparency = new List<Cell>();
+    }
+
     void changeRenderingLayer()
     {
         switch (heightLevel)

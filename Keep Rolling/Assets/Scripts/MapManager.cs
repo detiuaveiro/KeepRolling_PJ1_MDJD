@@ -127,18 +127,6 @@ public class MapManager : MonoBehaviour
     private bool CanPlaceTileHere(int x, int y, int height)
     {
         return (!cell_matrix.HasCell(x, y) || cell_matrix.GetCell(x, y).getHeight() < height);
-
-        /*
-        foreach (var cell in cells)
-        {
-            if (cell.getX() == x + height && cell.getY() == y + height && cell.getHeight() == height)
-            {
-                return false;
-            }
-        }
-        
-        return true;
-        */
     }
 
     public bool CanPlaceTile(Cell cell, Piece piece, int height) {
