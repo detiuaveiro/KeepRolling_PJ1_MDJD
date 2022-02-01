@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e6f3fbb560bd6041a202ea918fa4f23, type: 3}
   m_Name: passadeiraAsfaltoEsq
   m_EditorClassIdentifier: 
-  m_DefaultSprite: {fileID: 21300000, guid: 23913cbb877025442adbb98009d0d9bd, type: 3}
+  m_DefaultSprite: {fileID: 21300000, guid: d8a6ab1eba5b3a347b651044e61232af, type: 3}
   m_DefaultGameObject: {fileID: 0}
   m_DefaultColliderType: 1
   m_TilingRules: []
