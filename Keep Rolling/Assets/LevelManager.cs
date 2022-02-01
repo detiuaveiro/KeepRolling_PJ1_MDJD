@@ -75,7 +75,7 @@ public class LevelManager : MonoBehaviour
         // won the level
         if (LevelCompleteWithSuccess())
         {
-            float score = GenerateScore();
+            string score = GenerateScore();
             finalScreenLabel.text = "Level Completed\nScore: " + score;
             finalScreen.SetActive(true);
             continueBtn.SetActive(true);
@@ -165,10 +165,12 @@ public class LevelManager : MonoBehaviour
         yield return null;
     }
 
-    private float GenerateScore()
+    private string GenerateScore()
     {
         List<Command> solution = searchTree.GetCommandSolution();
-        float score = ((levelConfig.totalBalance/(levelConfig.totalBalance - currentBalance)) * 100f) + ((searchTree.max_depth - solution.Count) * 300);
+        float balanceScore = (levelConfig.totalBalance / (levelConfig.totalBalance - currentBalance)) * 100f;
+        float eficiencyScore = (searchTree.max_depth - solution.Count) * 300;
+        string score = balanceScore + eficiencyScore + "\n----------\nBalance score: " +  balanceScore + "\nEficiency score: " + eficiencyScore;
         return score;
     }
 }
