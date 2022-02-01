@@ -76,6 +76,11 @@ public class InGameMenuManager : MonoBehaviour
         help.SetActive(true);
     }
 
+    public void CloseHelp()
+    {
+        help.SetActive(false);
+    }
+
     public void GoToMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
