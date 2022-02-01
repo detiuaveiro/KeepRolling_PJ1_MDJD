@@ -20,6 +20,7 @@ public class ChairMovementController : MonoBehaviour
     private float speed=1; 
 
     public int heightLevel;
+    private int nextHeightLevel;
 
     public Animator animator;
     private void Awake()
@@ -41,6 +42,7 @@ public class ChairMovementController : MonoBehaviour
         moving = false;
         level_ended = false;
         cellsToRestoreTransparency = new List<Cell>();
+        nextHeightLevel = -1;
     }
 
     public void RestartMovement() {
@@ -54,7 +56,7 @@ public class ChairMovementController : MonoBehaviour
 
     void changeRenderingLayer()
     {
-        switch (heightLevel)
+        switch (nextHeightLevel)
         { 
             case 0:
                 this.ChairSprite.sortingLayerName = "AgentOnGround";
@@ -65,6 +67,7 @@ public class ChairMovementController : MonoBehaviour
             default:
                 break;
         }
+        nextHeightLevel = heightLevel;
     }
 
     void applyTransparencyToCells()
