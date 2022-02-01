@@ -12,6 +12,7 @@ public class LevelManager : MonoBehaviour
     private int currentBalance;
 
     public GameObject finalScreen;
+    public GameObject continueBtn;
     public Text finalScreenLabel;
     void Awake()
     {
@@ -77,12 +78,14 @@ public class LevelManager : MonoBehaviour
             float score = GenerateScore();
             finalScreenLabel.text = "Level Completed\nScore: " + score;
             finalScreen.SetActive(true);
+            continueBtn.SetActive(true);
             //Debug.Log("ganhou:"+ score);
         } // lost the level
         else
         {
             finalScreenLabel.text = "Level Failed";
             finalScreen.SetActive(true);
+            continueBtn.SetActive(false);
             //Debug.Log("perdeu");
         }
     }

@@ -52,6 +52,12 @@ public class InGameMenuManager : MonoBehaviour
         SceneManager.LoadScene("InGame");
     }
 
+    public void NextLevel()
+    {
+        GameManager.instance.currentLevel += 1;
+        SceneManager.LoadScene("InGame");
+    }
+
     public void OpenSettings()
     {
         menu.SetActive(false);
