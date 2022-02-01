@@ -53,14 +53,15 @@ public class MapManager : MonoBehaviour
             solve = false;
             StartCoroutine(SolveLevel());
         }
-        if (Input.GetKeyDown(KeyCode.Backspace))
+    }
+
+    public void UndoObjectPlace()
+    {
+        if (placeObjectLog.Count > 0)
         {
-            if (placeObjectLog.Count > 0)
-            {
-                PlaceObject command = placeObjectLog[placeObjectLog.Count - 1];
-                placeObjectLog.Remove(command);
-                command.Undo();
-            }
+            PlaceObject command = placeObjectLog[placeObjectLog.Count - 1];
+            placeObjectLog.Remove(command);
+            command.Undo();
         }
     }
 
