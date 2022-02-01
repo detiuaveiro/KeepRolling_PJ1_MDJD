@@ -8,6 +8,7 @@ public class InGameMenuManager : MonoBehaviour
 {
     public GameObject menu;
     public GameObject settingsMenu;
+    public GameObject help;
     public Dropdown resolutionsDropDown;
     private Resolution[] resolutions;
 
@@ -68,6 +69,11 @@ public class InGameMenuManager : MonoBehaviour
     {
         settingsMenu.SetActive(false);
         menu.SetActive(true);
+    }
+
+    public void OpenHelp()
+    {
+        help.SetActive(true);
     }
 
     public void GoToMainMenu()
