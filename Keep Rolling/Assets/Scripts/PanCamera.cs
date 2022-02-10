@@ -18,21 +18,27 @@ public class PanCamera : MonoBehaviour
 
     void Update()
     {
+        
         if (Input.GetMouseButtonDown(1))
         {
-            lastPosition = Input.mousePosition;
+            lastPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
 
         if (Input.GetMouseButton(1))
         {
-            var delta = Input.mousePosition - lastPosition;
+            Cursor.lockState = CursorLockMode.Confined;
+            var delta = Camera.main.ScreenToWorldPoint(Input.mousePosition) - lastPosition;
             Vector3 tr = transform.position;
             tr += new Vector3(-delta.x * mouseSensitivity, -delta.y * mouseSensitivity, 0);
-            if (Mathf.Abs( tr.x - central_position.x ) < maxDistanceX && Mathf.Abs(tr.y - central_position.y) < maxDistanceY) {
+            if (Mathf.Abs(tr.x - central_position.x) < maxDistanceX && Mathf.Abs(tr.y - central_position.y) < maxDistanceY)
+            {
                 Debug.Log(Vector3.Distance(tr, central_position));
                 transform.Translate(-delta.x * mouseSensitivity, -delta.y * mouseSensitivity, 0);
             }
-            lastPosition = Input.mousePosition;
+            lastPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        }
+        else {
+            Cursor.lockState = CursorLockMode.None;
         }
     }
 }
