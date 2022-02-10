@@ -5513,13 +5513,25 @@ MonoBehaviour:
   m_FillRect: {fileID: 1752979291}
   m_HandleRect: {fileID: 390374967}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.0001
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 851515273}
+        m_TargetAssemblyTypeName: InGameMenuManager, Assembly-CSharp
+        m_MethodName: SetMusicVolume
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &680165654
 GameObject:
   m_ObjectHideFlags: 0
@@ -6380,6 +6392,10 @@ MonoBehaviour:
   settingsMenu: {fileID: 1499375579}
   help: {fileID: 1149545497}
   resolutionsDropDown: {fileID: 1737556614}
+  audioMixer: {fileID: 24100000, guid: 11f4680c485380d4489e47e1aac2e11a, type: 2}
+  masterVolSlider: {fileID: 1672583810}
+  musicVolSlider: {fileID: 670706515}
+  soundEffectsVolSlider: {fileID: 1821027686}
 --- !u!1 &865815352
 GameObject:
   m_ObjectHideFlags: 0
@@ -10067,13 +10083,25 @@ MonoBehaviour:
   m_FillRect: {fileID: 1286668367}
   m_HandleRect: {fileID: 607956724}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.0001
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 851515273}
+        m_TargetAssemblyTypeName: InGameMenuManager, Assembly-CSharp
+        m_MethodName: SetMasterVolume
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1678780701
 GameObject:
   m_ObjectHideFlags: 0
@@ -10693,13 +10721,25 @@ MonoBehaviour:
   m_FillRect: {fileID: 1261084457}
   m_HandleRect: {fileID: 1197489757}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.0001
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 851515273}
+        m_TargetAssemblyTypeName: InGameMenuManager, Assembly-CSharp
+        m_MethodName: SetSoundEffectsVolume
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1840291176
 GameObject:
   m_ObjectHideFlags: 0
