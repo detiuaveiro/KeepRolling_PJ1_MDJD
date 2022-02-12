@@ -134,7 +134,9 @@ public class ChairMovementController : MonoBehaviour
             Command command = commandQueue.Dequeue();
             commandLog.Add(command);
             command.Execute();
-
+            if (!(command is Move)) {
+                return;
+            }
             changeRenderingLayer();
             applyTransparencyToCells();
             animator.SetBool("Idle", false);
@@ -172,7 +174,7 @@ public class ChairMovementController : MonoBehaviour
                 }
             }
 
-            moving = true;
+            moving = true; 
         }
         //No more movement
         else if (!moving && commandQueue.Count == 0 && commandLog.Count > 0 && !level_ended)

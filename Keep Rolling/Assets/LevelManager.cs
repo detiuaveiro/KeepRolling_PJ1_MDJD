@@ -38,6 +38,7 @@ public class LevelManager : MonoBehaviour
                     Debug.Log(((Move)move).destination);
                     ChairMovementController.instance.commandQueue.Enqueue((Move)move);
                 }
+                ChairMovementController.instance.commandQueue.Enqueue(new Reaction(ReactionEnum.HAPPY, 2));
                 solving = false;
             } // level failed 
             else {
@@ -52,16 +53,19 @@ public class LevelManager : MonoBehaviour
                     Debug.Log(((Move)move).destination);
                     ChairMovementController.instance.commandQueue.Enqueue((Move)move);
                 }
+                ChairMovementController.instance.commandQueue.Enqueue(new Reaction(ReactionEnum.ANGRY,2));
                 if (searchTree.dead_end_node_list.Count > 1) { 
                     SearchNode node2 = searchTree.dead_end_node_list[1];
                     int common_point = SearchNode.GetCommonPoint(node1, node2);
                     for (int i = node1_comm_list.Count - 1; i >= common_point; i--) {
                         ChairMovementController.instance.commandQueue.Enqueue((Move)node1_comm_list[i]);
                     }
+                    ChairMovementController.instance.commandQueue.Enqueue(new Reaction(ReactionEnum.INTERROGATION, 2));
                     var node2_comm_list = node2.GetCommandList();
                     for (int j = common_point + 1; j < node2_comm_list.Count; j++) {
                         ChairMovementController.instance.commandQueue.Enqueue((Move)node2_comm_list[j]);
                     }
+                    ChairMovementController.instance.commandQueue.Enqueue(new Reaction(ReactionEnum.ANGRY, 2));
                 }
 
 
