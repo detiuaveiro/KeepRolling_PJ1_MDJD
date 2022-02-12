@@ -36,7 +36,7 @@ public class CellFactory
 
             // not walkable
             default:
-                return null;
+                return new Cell(x, y, height, false);
         }
     }
 }

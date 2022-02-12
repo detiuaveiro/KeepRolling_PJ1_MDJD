@@ -27,6 +27,14 @@ public class ObstacleSelected : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetButtonDown("Rotate Objects"))
+        {
+            ChangeSprite();
+        }
+        if (Input.GetButtonDown("Deselect Object"))
+        {
+            Destroy(this.gameObject);
+        }
         transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
 
@@ -42,6 +50,9 @@ public class ObstacleSelected : MonoBehaviour
             Vector3 place = Vector3.zero;
             switch (piece.type) {
                 case PieceType.Ramp:
+                    if (lastSnappedCell.getHeight() + 1 >= MapManager.instance.tilemaps.Count) {
+                        return;
+                    }
                     place = MapManager.instance.tilemaps[lastSnappedCell.getHeight() + 1].GetCellCenterWorld(new Vector3Int(x, y, 0));
                     break;
                 case PieceType.FixGround:
@@ -69,12 +80,6 @@ public class ObstacleSelected : MonoBehaviour
             this.gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.75f);
         }
 
-        if (Input.GetButtonDown("Rotate Objects"))
-        {
-            ChangeSprite();
-        }
-        if (Input.GetButtonDown("Deselect Object")) {
-            Destroy(this.gameObject);
-        }
+
     }
 }
