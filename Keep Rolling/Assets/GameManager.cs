@@ -24,16 +24,16 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(this.gameObject);
+            SaveManager.Save save = SaveManager.LoadSaveGame();
+            levelHighScores = save.scores;
+            selectedChair = save.selectedChair;
+            selectedPerson = save.selectedPerson;
         }
     }
 
     void Start()
     {
         levelHighScores = new();
-        SaveManager.Save save = SaveManager.LoadSaveGame();
-        levelHighScores = save.scores;
-        selectedChair = save.selectedChair;
-        selectedPerson = save.selectedPerson;
     }
 
     public void SetScoreForCurrentLevel(float score)
