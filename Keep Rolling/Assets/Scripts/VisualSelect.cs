@@ -11,8 +11,10 @@ public class VisualSelect : MonoBehaviour
     public Sprite notSelectedSprite;
     public string character_selected;
     public string chair_selected;
-    public Dictionary<string,Sprite> sprites;
     public Image image;
+
+    private Dictionary<string, Sprite> sprites;
+    private SaveManager.Save save;
 
     [System.Serializable]
     public class AppearanceData {
@@ -34,13 +36,10 @@ public class VisualSelect : MonoBehaviour
         foreach (string spriteName in appearanceData.all) {
             Sprite sprite = Resources.Load<Sprite>($"Visual/{spriteName}");
             sprites.Add(spriteName, sprite);
-            Debug.Log(spriteName);
         }
-        foreach (string s in sprites.Keys) {
-            Debug.Log(s);
-        }
-        character_selected = "rapaz";
-        chair_selected = "azul";
+        save = SaveManager.LoadSaveGame();
+        character_selected = save.selectedPerson;
+        chair_selected = save.selectedChair;
         image.sprite = sprites[$"{character_selected}-{chair_selected}"];
         //load character select
     }
@@ -49,10 +48,14 @@ public class VisualSelect : MonoBehaviour
     {
         character_selected = id;
         image.sprite = sprites[$"{character_selected}-{chair_selected}"];
+        save.selectedPerson = character_selected;
+        SaveManager.SaveGame(save);
     }
     public void ChangeChair(string id)
     {
         chair_selected = id;
         image.sprite = sprites[$"{character_selected}-{chair_selected}"];
+        save.selectedChair = chair_selected;
+        SaveManager.SaveGame(save);
     }
 }

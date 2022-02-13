@@ -21,14 +21,17 @@ public class SaveManager
         }
     }
 
-    public static void SaveGame(string selectedChair, string selectedPerson, Dictionary<string, float> scores)
-    {
-        Save saveGame = new(selectedChair, selectedPerson, scores);
-
+    public static void SaveGame(Save saveGame) {
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/gamesave.save");
         bf.Serialize(file, saveGame);
         file.Close();
+    }
+
+    public static void SaveGame(string selectedChair, string selectedPerson, Dictionary<string, float> scores)
+    {
+        Save saveGame = new(selectedChair, selectedPerson, scores);
+        SaveGame(saveGame);
     }
 
     public static Save LoadSaveGame()
