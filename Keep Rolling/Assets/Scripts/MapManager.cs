@@ -29,6 +29,10 @@ public class MapManager : MonoBehaviour
         instance = this;
         LoadScene();
         placeObjectLog = new List<PlaceObject>();
+        if (GameManager.instance.currentLevel == 1)
+        {
+            StoryTellerManager.instance.DisplayStoryTeller();
+        }
     }
 
     private void LoadScene()
