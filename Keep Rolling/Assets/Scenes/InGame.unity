@@ -3323,12 +3323,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 423162212}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -28.080994, y: 2.8604965}
-  m_SizeDelta: {x: -325.05, y: -25.7446}
+  m_AnchoredPosition: {x: 0.10070801, y: 2.8604965}
+  m_SizeDelta: {x: -26.8485, y: -25.7446}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &321202513
 MonoBehaviour:
@@ -3351,12 +3351,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_Font: {fileID: 12800000, guid: 9e40a32d6ba1b1049aeb17b6236ae996, type: 3}
+    m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
+    m_MinSize: 0
+    m_MaxSize: 300
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -3964,9 +3964,10 @@ RectTransform:
   m_GameObject: {fileID: 423162211}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.4, y: 1.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1872114387}
   - {fileID: 1410890862}
   - {fileID: 321202512}
   - {fileID: 1436631790}
@@ -3975,7 +3976,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 82.82349, y: 306}
+  m_AnchoredPosition: {x: 11, y: 370}
   m_SizeDelta: {x: 1348.5381, y: 168.27}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &423162213
@@ -3993,13 +3994,13 @@ MonoBehaviour:
   textBox: {fileID: 321202513}
   textLines:
   - Hello...
-  - I am a student from University of Aveiro and i have reduced mobility...
-  - I need your help to overcome the lack of acessibility in public domain...
+  - I am a student from the University of Aveiro and I have reduced mobility...
+  - I need your help to overcome the lack of acessibility in public spaces...
   - For this, i need you to find the optimal solution for each obstacle that is on
     my way...
   - Use the objects below to solve the obstacles, you can press R to change the rotation
     of the object...
-  - Keep an eye on your budjet, you can't use more than that...
+  - Keep an eye on your budget, you can't use more than that...
   - Shall we begin?
   image: {fileID: 1436631791}
   rapazSprites:
@@ -4027,14 +4028,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5a01703a3fa835a469dee30c774849f6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1958248bc23af984a8de51dcf9543b5a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9037,12 +9038,12 @@ RectTransform:
   m_Children:
   - {fileID: 2140815126}
   m_Father: {fileID: 423162212}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -65, y: 0}
-  m_SizeDelta: {x: 125.6063, y: 39.9852}
+  m_AnchoredPosition: {x: -10.799988, y: -11.8}
+  m_SizeDelta: {x: 171.29, y: 38.6885}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1410890863
 MonoBehaviour:
@@ -9735,11 +9736,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 423162212}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -554, y: 139}
+  m_AnchoredPosition: {x: -633, y: 139}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1436631791
@@ -11815,6 +11816,82 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1859149969}
   m_CullTransparentMesh: 1
+--- !u!1 &1872114386
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1872114387}
+  - component: {fileID: 1872114389}
+  - component: {fileID: 1872114388}
+  m_Layer: 5
+  m_Name: DarkOverlay (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1872114387
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1872114386}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.7142856, y: 0.7142856, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 423162212}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -8.509058, y: 36.908134}
+  m_SizeDelta: {x: 1925.4087, y: 1073.4624}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1872114388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1872114386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.34901962}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1872114389
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1872114386}
+  m_CullTransparentMesh: 1
 --- !u!1 &1877937131
 GameObject:
   m_ObjectHideFlags: 0
@@ -13367,11 +13444,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_Font: {fileID: 12800000, guid: 9e40a32d6ba1b1049aeb17b6236ae996, type: 3}
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 0
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
