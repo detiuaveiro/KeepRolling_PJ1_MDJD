@@ -13,7 +13,7 @@ public class SearchTree
     public LinkedList<SearchNode> open_nodes;
     public SearchNode solution;
     public int nodes_explored;
-    public int max_depth = 70;
+    public int max_depth = 2000;
     public Dictionary<Vector3, int> positions_done;
     private List<SearchNode> new_node_list;
     public SearchNode best_node; 
@@ -133,7 +133,7 @@ public class SearchTree
     }
 
     public void CheckAndAddNode(SearchNode node, Cell original_cell, Cell cell) {
-        if (node.depth + 1 < max_depth && !(cell is null) &&
+        if (!(cell is null) &&
             !(node.PositionInParent(cell.getVisualHeightPosition())) &&
             CanWalkToCell(original_cell, cell) &&
             CheckPosition(node, cell.getVisualHeightPosition()))
