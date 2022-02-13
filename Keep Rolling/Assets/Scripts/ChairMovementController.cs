@@ -64,43 +64,24 @@ public class ChairMovementController : MonoBehaviour
                 int adjacentHeight = adjacentCell.getHeight();
                 if (adjacentHeight > cellDestination.getHeight())
                 {
-                    Debug.Log("above");
                     level = adjacentHeight;
                 }
             } else
             {
-                Cell adjacentCell3 = MapManager.instance.cell_matrix.GetCell(cellDestination.getVisualX(), cellDestination.getVisualY() + 2);
-                if (adjacentCell3 != null)
-                {
-                    int adjacentHeight = adjacentCell3.getHeight();
-                    if (adjacentHeight > cellDestination.getHeight())
-                    {
-                        Debug.Log("above");
-                        level = adjacentHeight;
-                    }
-                }
+                level = 2;
             }
-            Cell adjacentCell2 = MapManager.instance.cell_matrix.GetCell(cellDestination.getVisualX()+1, cellDestination.getVisualY());
+            Cell adjacentCell2 = MapManager.instance.cell_matrix.GetCell(cellDestination.getVisualX() + 1, cellDestination.getVisualY());
             if (adjacentCell2 != null)
             {
                 int adjacentHeight = adjacentCell2.getHeight();
-                if (adjacentHeight > cellDestination.getHeight())
+                if (adjacentHeight > cellDestination.getHeight() && level < adjacentHeight)
                 {
-                    Debug.Log("above");
                     level = adjacentHeight;
                 }
-            } else
+            }
+            else
             {
-                Cell adjacentCell4 = MapManager.instance.cell_matrix.GetCell(cellDestination.getVisualX() + 2, cellDestination.getVisualY());
-                if (adjacentCell4 != null)
-                {
-                    int adjacentHeight = adjacentCell4.getHeight();
-                    if (adjacentHeight > cellDestination.getHeight())
-                    {
-                        Debug.Log("above");
-                        level = adjacentHeight;
-                    }
-                }
+                level = 2;
             }
         }
         switch (level)
@@ -190,7 +171,7 @@ public class ChairMovementController : MonoBehaviour
                 return;
             }
             changeRenderingLayer();
-            applyTransparencyToCells();
+            //applyTransparencyToCells(); Needs to be fixed
             animator.SetBool("Idle", false);
 
             Cell cell;
