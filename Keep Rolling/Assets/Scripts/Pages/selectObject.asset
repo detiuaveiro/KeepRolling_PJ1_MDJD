@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 13a195e6f62c7d845832a97b69aac499, type: 3}
-  m_Name: inception
+  m_Name: selectObject
   m_EditorClassIdentifier: 
-  page_text: Inception
-  video_clip: {fileID: 32900000, guid: 6c79da004c9bbfd449c74877b69cb508, type: 3}
+  page_text: Select the object that you want to use
+  video_clip: {fileID: 32900000, guid: 93961eb82221f9b4ba533236e8daaae3, type: 3}

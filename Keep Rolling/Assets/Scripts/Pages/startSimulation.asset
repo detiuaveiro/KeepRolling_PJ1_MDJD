@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 13a195e6f62c7d845832a97b69aac499, type: 3}
-  m_Name: wuant
+  m_Name: startSimulation
   m_EditorClassIdentifier: 
-  page_text: In first level ahahah
-  video_clip: {fileID: 32900000, guid: 645efd2df8b683341959f2b478fe84e3, type: 3}
+  page_text: After you placed all objects in place, start the simulation!
+  video_clip: {fileID: 32900000, guid: f4e0f260377c6c54093332bf3a73f4b6, type: 3}
