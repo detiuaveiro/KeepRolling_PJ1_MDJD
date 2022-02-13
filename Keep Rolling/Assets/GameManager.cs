@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     public int currentLevel;
+
+    public Dictionary<string, float> levelHighScores;
     void Awake()
     {
         if (instance != null)
@@ -20,6 +22,29 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(this.gameObject);
+        }
+    }
+
+    void Start()
+    {
+        levelHighScores = new();
+        SaveManager.Save save = SaveManager.LoadSaveGame();
+        levelHighScores = save.scores;
+    }
+
+    public void SetScoreForCurrentLevel(float score)
+    {
+        if (levelHighScores.ContainsKey("Level" + currentLevel))
+        {
+            if (levelHighScores["Level" + currentLevel] < score)
+            {
+                levelHighScores["Level" + currentLevel] = score;
+                SaveManager.SaveGame("s", "s", levelHighScores);
+            }
+        } else
+        {
+            levelHighScores.Add("Level" + currentLevel, score);
+            SaveManager.SaveGame("s", "s", levelHighScores);
         }
     }
 
