@@ -72,6 +72,7 @@ public class ObstacleSelected : MonoBehaviour
             if (Input.GetButton("Fire1"))
             {
                 if (MapManager.instance.PlaceTile(lastSnappedCell, sprites[currentSprite], offset, piece, (Direction)currentSprite)) {
+                    SoundManager.instance.PlayPlaceObjectSound();
                     Destroy(this.gameObject);
                 }
             }
