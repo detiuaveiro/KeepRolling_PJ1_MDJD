@@ -83,6 +83,7 @@ public class LevelManager : MonoBehaviour
             finalScreenLabel.text = "Level Completed\nScore: " + score;
             finalScreen.SetActive(true);
             continueBtn.SetActive(true);
+            SoundManager.instance.PlayWinSound();
             //Debug.Log("ganhou:"+ score);
         } // lost the level
         else
@@ -90,6 +91,7 @@ public class LevelManager : MonoBehaviour
             finalScreenLabel.text = "Level Failed";
             finalScreen.SetActive(true);
             continueBtn.SetActive(false);
+            SoundManager.instance.PlayLoseSound();
             //Debug.Log("perdeu");
         }
     }
