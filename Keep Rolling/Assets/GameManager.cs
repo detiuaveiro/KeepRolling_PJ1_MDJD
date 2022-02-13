@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
 
     public int currentLevel;
 
+    public string selectedChair;
+    public string selectedPerson;
     public Dictionary<string, float> levelHighScores;
     void Awake()
     {
@@ -30,6 +32,8 @@ public class GameManager : MonoBehaviour
         levelHighScores = new();
         SaveManager.Save save = SaveManager.LoadSaveGame();
         levelHighScores = save.scores;
+        selectedChair = save.selectedChair;
+        selectedPerson = save.selectedPerson;
     }
 
     public void SetScoreForCurrentLevel(float score)
@@ -39,13 +43,19 @@ public class GameManager : MonoBehaviour
             if (levelHighScores["Level" + currentLevel] < score)
             {
                 levelHighScores["Level" + currentLevel] = score;
-                SaveManager.SaveGame("s", "s", levelHighScores);
+                SaveManager.SaveGame(selectedChair, selectedPerson, levelHighScores);
             }
         } else
         {
             levelHighScores.Add("Level" + currentLevel, score);
-            SaveManager.SaveGame("s", "s", levelHighScores);
+            SaveManager.SaveGame(selectedChair, selectedPerson, levelHighScores);
         }
+    }
+
+    public void SetVisualSelection(string character, string chair) {
+        selectedChair = chair;
+        selectedPerson = character;
+        SaveManager.SaveGame(chair, character, levelHighScores);
     }
 
     public int GetCurrentLevel()

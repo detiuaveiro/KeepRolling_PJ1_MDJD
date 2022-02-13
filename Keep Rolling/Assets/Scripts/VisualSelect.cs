@@ -37,9 +37,8 @@ public class VisualSelect : MonoBehaviour
             Sprite sprite = Resources.Load<Sprite>($"Visual/{spriteName}");
             sprites.Add(spriteName, sprite);
         }
-        save = SaveManager.LoadSaveGame();
-        character_selected = save.selectedPerson;
-        chair_selected = save.selectedChair;
+        character_selected = GameManager.instance.selectedPerson;
+        chair_selected = GameManager.instance.selectedChair;
         image.sprite = sprites[$"{character_selected}-{chair_selected}"];
         //load character select
     }
@@ -48,14 +47,12 @@ public class VisualSelect : MonoBehaviour
     {
         character_selected = id;
         image.sprite = sprites[$"{character_selected}-{chair_selected}"];
-        save.selectedPerson = character_selected;
-        SaveManager.SaveGame(save);
+        GameManager.instance.SetVisualSelection(character_selected, chair_selected);
     }
     public void ChangeChair(string id)
     {
         chair_selected = id;
         image.sprite = sprites[$"{character_selected}-{chair_selected}"];
-        save.selectedChair = chair_selected;
-        SaveManager.SaveGame(save);
+        GameManager.instance.SetVisualSelection(character_selected, chair_selected);
     }
 }
