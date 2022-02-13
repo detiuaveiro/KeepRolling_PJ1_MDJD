@@ -207,22 +207,22 @@ public class ChairMovementController : MonoBehaviour
                 if (cell.getX() - cellDestination.getX() > 0)
                 {
                     animator.SetBool("GoinUp", false);
-                    transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+                    transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * -1, transform.localScale.y, transform.localScale.z);
                 }
                 else if (cell.getX() - cellDestination.getX() < 0)
                 {
                     animator.SetBool("GoinUp", true);
-                    transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * -1, transform.localScale.y, transform.localScale.z);
+                    transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
                 }
                 else if (cell.getY() - cellDestination.getY() > 0)
                 {
-                    transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * -1, transform.localScale.y, transform.localScale.z);
+                    transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) , transform.localScale.y, transform.localScale.z);
                     animator.SetBool("GoinUp", false);
                 }
                 else
                 {
                     animator.SetBool("GoinUp", true);
-                    transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+                    transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * -1, transform.localScale.y, transform.localScale.z);
                 }
             }
 
