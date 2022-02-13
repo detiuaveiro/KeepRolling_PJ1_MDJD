@@ -53,6 +53,9 @@ TagManager:
   - name: Level2
     uniqueID: 2269722879
     locked: 0
+  - name: AgentLevel2
+    uniqueID: 3323653647
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

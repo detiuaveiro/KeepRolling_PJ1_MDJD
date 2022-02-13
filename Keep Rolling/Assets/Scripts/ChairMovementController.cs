@@ -54,13 +54,64 @@ public class ChairMovementController : MonoBehaviour
 
     void changeRenderingLayer()
     {
-        switch (heightLevel)
-        { 
+        int level = heightLevel;
+        if (cellDestination != null)
+        {
+            Cell adjacentCell = MapManager.instance.cell_matrix.GetCell(cellDestination.getVisualX(), cellDestination.getVisualY()+1);
+            if (adjacentCell != null)
+            {
+                int adjacentHeight = adjacentCell.getHeight();
+                if (adjacentHeight > cellDestination.getHeight())
+                {
+                    Debug.Log("above");
+                    level = adjacentHeight;
+                }
+            } else
+            {
+                Cell adjacentCell3 = MapManager.instance.cell_matrix.GetCell(cellDestination.getVisualX(), cellDestination.getVisualY() + 2);
+                if (adjacentCell3 != null)
+                {
+                    int adjacentHeight = adjacentCell3.getHeight();
+                    if (adjacentHeight > cellDestination.getHeight())
+                    {
+                        Debug.Log("above");
+                        level = adjacentHeight;
+                    }
+                }
+            }
+            Cell adjacentCell2 = MapManager.instance.cell_matrix.GetCell(cellDestination.getVisualX()+1, cellDestination.getVisualY());
+            if (adjacentCell2 != null)
+            {
+                int adjacentHeight = adjacentCell2.getHeight();
+                if (adjacentHeight > cellDestination.getHeight())
+                {
+                    Debug.Log("above");
+                    level = adjacentHeight;
+                }
+            } else
+            {
+                Cell adjacentCell4 = MapManager.instance.cell_matrix.GetCell(cellDestination.getVisualX() + 2, cellDestination.getVisualY());
+                if (adjacentCell4 != null)
+                {
+                    int adjacentHeight = adjacentCell4.getHeight();
+                    if (adjacentHeight > cellDestination.getHeight())
+                    {
+                        Debug.Log("above");
+                        level = adjacentHeight;
+                    }
+                }
+            }
+        }
+        switch (level)
+        {
             case 0:
                 this.ChairSprite.sortingLayerName = "AgentOnGround";
                 break;
             case 1:
                 this.ChairSprite.sortingLayerName = "AgentLevel1";
+                break;
+            case 2:
+                this.ChairSprite.sortingLayerName = "AgentLevel2";
                 break;
             default:
                 break;

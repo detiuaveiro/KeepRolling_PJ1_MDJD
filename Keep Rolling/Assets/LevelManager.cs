@@ -174,7 +174,12 @@ public class LevelManager : MonoBehaviour
         List<Command> solution = searchTree.GetCommandSolution();
         float balanceScore = (levelConfig.totalBalance / (levelConfig.totalBalance - currentBalance)) * 100f;
         float eficiencyScore = (searchTree.max_depth - solution.Count) * 300;
+        GameManager.instance.SetScoreForCurrentLevel(balanceScore + eficiencyScore);
         string score = balanceScore + eficiencyScore + "\n----------\nBalance score: " +  balanceScore + "\nEficiency score: " + eficiencyScore;
+        if (GameManager.instance.levelHighScores.ContainsKey("Level" + GameManager.instance.currentLevel))
+        {
+            score = score + "\n*********\nHigh Score: " + GameManager.instance.levelHighScores["Level" + GameManager.instance.currentLevel];
+        }
         return score;
     }
 }
