@@ -41,6 +41,8 @@ public class ChairMovementController : MonoBehaviour
         moving = false;
         level_ended = false;
         cellsToRestoreTransparency = new List<Cell>();
+        SaveManager.Save save = SaveManager.LoadSaveGame();
+        animator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>($"Visual/animations/{save.selectedPerson}_{save.selectedChair}");
     }
 
     public void RestartMovement() {
