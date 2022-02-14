@@ -9,6 +9,7 @@ public class MapManager : MonoBehaviour
 {
     public static MapManager instance;
     public List<Tilemap> tilemaps;
+    public Tilemap BaseTileMap;
     //public List<Cell> cells;
     public CellMatrix cell_matrix;
     public GameObject arrival_pin_prefab;
@@ -37,7 +38,7 @@ public class MapManager : MonoBehaviour
 
     private void LoadScene()
     {
-        List<Cell> cellList = MapLoader.loadLevel(GameManager.instance.GetCurrentLevel(),tilemaps);
+        List<Cell> cellList = MapLoader.loadLevel(GameManager.instance.GetCurrentLevel(),tilemaps,BaseTileMap);
         CreateCellGridFromList(cellList);
         ChairMovementController.instance.transform.position = tilemaps[startPosition.z].CellToWorld(startPosition);
         Cell endCell = cell_matrix.GetCell(endPosition.x, endPosition.y);

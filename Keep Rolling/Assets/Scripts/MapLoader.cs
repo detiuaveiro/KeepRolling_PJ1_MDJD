@@ -70,7 +70,7 @@ public class MapLoader : MonoBehaviour
      * 
      *
      */
-    public static List<Cell> loadLevel(int level,List<Tilemap> tilemaps)
+    public static List<Cell> loadLevel(int level,List<Tilemap> tilemaps,Tilemap baseTileMap)
     {
         TextAsset jsonFile = Resources.Load<TextAsset>("Tiles/tileAssociaton");
         Tiles tilesData = JsonUtility.FromJson<Tiles>(jsonFile.text);
@@ -142,6 +142,14 @@ public class MapLoader : MonoBehaviour
                         }
                     }
                 }
+            }
+        }
+        IsometricRuleTile baseTile = Resources.Load<IsometricRuleTile>("Tiles/baseTile");
+        for (int i = 0; i < image.width; i++)
+        {
+            for (int j = 0; j < image.height; j++)
+            {
+                baseTileMap.SetTile(new Vector3Int(j, image.width - i + 1, 0), baseTile);
             }
         }
         return cellList;
