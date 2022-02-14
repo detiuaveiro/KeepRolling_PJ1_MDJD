@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e6f3fbb560bd6041a202ea918fa4f23, type: 3}
   m_Name: casaAmigo
   m_EditorClassIdentifier: 
-  m_DefaultSprite: {fileID: 21300000, guid: c92d47f910d97984b81a7c8aec29c142, type: 3}
+  m_DefaultSprite: {fileID: 21300000, guid: 2a7c75137e7a4b04689b83b7003ea182, type: 3}
   m_DefaultGameObject: {fileID: 0}
   m_DefaultColliderType: 1
   m_TilingRules: []
